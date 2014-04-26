@@ -1,5 +1,7 @@
 package ch.digitalmeat.ld29;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +13,7 @@ public class GameWorld {
 	private GameWorldRenderer renderer;
 	private GameWorldFactory factory;
 	private PlayerHandler player;
+	private List<Entity> enemies = new ArrayList<Entity>();
 
 	public GameWorld() {
 		world = new World(gravity, true);
@@ -18,9 +21,9 @@ public class GameWorld {
 		renderer.useDebugRenderer = false;
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
-		factory.createCell(5, 2, Colors.ENEMY_WEAK);
-		factory.createCell(10, 10, Colors.ENEMY_NEUTRAL);
-		factory.createCell(-10, -10, Colors.ENEMY_STRONG);
+		enemies.add(factory.createCell(5, 2, Colors.ENEMY_WEAK));
+		enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
+		enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
 
 		Random random = new Random();
 		int generateFood = 500;

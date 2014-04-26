@@ -72,7 +72,7 @@ public class GameWorldFactory {
 
 	public Entity createCell(float x, float y, Color color) {
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.5f);
+		entity.body = createCellBody(x, y, 0.4f);
 		entity.setColor(color);
 		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
 		stage.addActor(entity);
