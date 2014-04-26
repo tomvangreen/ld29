@@ -48,7 +48,7 @@ public class GameWorldFactory {
 		entity.body = createCellBody(x, y, 0.0625f);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
-		entity.light = new PointLight(rayHandler, 50, color, 0.5f, x, y);
+		entity.light = new PointLight(rayHandler, 50, color, 1.5f, x, y);
 		stage.addActor(entity);
 		applyRandomForce(entity.body, 1f);
 		return entity;
@@ -60,7 +60,7 @@ public class GameWorldFactory {
 		entity.body = createCellBody(x, y, 0.125f);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
-		entity.light = new PointLight(rayHandler, 50, color, 1, x, y);
+		entity.light = new PointLight(rayHandler, 50, color, 3, x, y);
 		stage.addActor(entity);
 		applyRandomForce(entity.body, 4f);
 		return entity;
@@ -75,6 +75,9 @@ public class GameWorldFactory {
 		entity.body = createCellBody(x, y, 0.4f);
 		entity.setColor(color);
 		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
+		entity.cell = new CellData();
+		entity.cell.currentFood = 10;
+		entity.cell.foodCap = 50;
 		stage.addActor(entity);
 		return entity;
 	}

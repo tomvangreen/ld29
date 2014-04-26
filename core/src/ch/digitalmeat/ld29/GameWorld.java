@@ -26,7 +26,7 @@ public class GameWorld {
 		enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
 
 		Random random = new Random();
-		int generateFood = 500;
+		int generateFood = 100;
 		while (generateFood-- > 0) {
 			float x = random.nextFloat() * 60 - 30;
 			float y = random.nextFloat() * 60 - 30;

@@ -16,6 +16,7 @@ public class Entity extends Actor {
 
 	public Body body;
 	public PositionalLight light;
+	public CellData cell;
 
 	public TextureRegion region = Assets.cell;
 
