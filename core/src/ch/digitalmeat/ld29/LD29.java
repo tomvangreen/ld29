@@ -9,19 +9,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class LD29 extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+	private GameWorld gameWorld;
+	static final int VIEWPORT_WIDTH = 640;
+	static final int VIEWPORT_HEIGHT = 480;
+
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		gameWorld = new GameWorld();
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+	public void render() {
+		gameWorld.update(Gdx.graphics.getDeltaTime());
+
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		// batch.begin();
+		// batch.draw(img, 0, 0);
+		// batch.end();
+		gameWorld.draw();
 	}
 }
