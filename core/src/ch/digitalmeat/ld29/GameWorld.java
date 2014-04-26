@@ -2,7 +2,6 @@ package ch.digitalmeat.ld29;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -19,8 +18,9 @@ public class GameWorld {
 		renderer.useDebugRenderer = false;
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
-		factory.createCell(5, 2, Color.RED);
-		factory.createCell(10, 10, Color.GREEN);
+		factory.createCell(5, 2, Colors.ENEMY_WEAK);
+		factory.createCell(10, 10, Colors.ENEMY_NEUTRAL);
+		factory.createCell(-10, -10, Colors.ENEMY_STRONG);
 
 		Random random = new Random();
 		int generateFood = 500;
