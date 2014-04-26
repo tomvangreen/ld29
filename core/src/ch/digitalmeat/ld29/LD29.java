@@ -15,6 +15,7 @@ public class LD29 extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+		Assets.create();
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		gameWorld = new GameWorld();

@@ -15,7 +15,7 @@ public class GameWorldRenderer {
 	private Box2DDebugRenderer debugRenderer;
 
 	public GameWorldRenderer(World world) {
-		cam.zoom = 0.25f;
+		cam.zoom = 1f;
 		this.world = world;
 		viewport = new ScalingViewport(Scaling.fit, LD29.VIEWPORT_WIDTH, LD29.VIEWPORT_HEIGHT);
 		stage = new Stage(viewport);
@@ -31,10 +31,17 @@ public class GameWorldRenderer {
 	}
 
 	public void draw() {
+		cam.zoom = 1f;
 		cam.update();
 		stage.getViewport().setCamera(cam);
 		stage.draw();
+		cam.zoom = 1f / Entity.METERS_TO_PIXELS;
+		cam.update();
 		debugRenderer.render(world, cam.combined);
+	}
+
+	public void update() {
+		stage.act();
 	}
 
 }

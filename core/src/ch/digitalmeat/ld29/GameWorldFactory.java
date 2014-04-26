@@ -30,7 +30,7 @@ public class GameWorldFactory {
 		bodyDef.position.set(x, y);
 
 		CircleShape bodyShape = new CircleShape();
-		bodyShape.setRadius(1f);
+		bodyShape.setRadius(0.5f);
 		Body body = world.createBody(bodyDef);
 
 		FixtureDef fixtureDef = new FixtureDef();
