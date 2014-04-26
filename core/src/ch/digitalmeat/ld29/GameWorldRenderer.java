@@ -19,6 +19,7 @@ public class GameWorldRenderer {
 	private RayHandler handler;
 
 	public boolean useDebugRenderer;
+	private GroundRenderer ground;
 
 	public GameWorldRenderer(World world) {
 		cam.zoom = 1f;
@@ -27,7 +28,8 @@ public class GameWorldRenderer {
 		stage = new Stage(viewport);
 		debugRenderer = new Box2DDebugRenderer();
 		handler = new RayHandler(world, LD29.VIEWPORT_WIDTH, LD29.VIEWPORT_HEIGHT);
-		handler.setAmbientLight(Colors.AMBIENT_LIGHT);
+		// handler.setAmbientLight(Colors.AMBIENT_LIGHT);
+		ground = new GroundRenderer();
 	}
 
 	public OrthographicCamera getCam() {
@@ -47,6 +49,7 @@ public class GameWorldRenderer {
 		cam.zoom = 1f;
 		cam.update();
 		stage.getViewport().setCamera(cam);
+		ground.draw(cam);
 		stage.draw();
 		cam.position.set(position.x / Entity.METERS_TO_PIXELS, position.y / Entity.METERS_TO_PIXELS, 0);
 		cam.zoom = 1f / Entity.METERS_TO_PIXELS;
