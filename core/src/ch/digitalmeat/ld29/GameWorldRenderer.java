@@ -1,6 +1,9 @@
 package ch.digitalmeat.ld29;
 
+import box2dLight.RayHandler;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +16,9 @@ public class GameWorldRenderer {
 	private Stage stage;
 	private ScalingViewport viewport;
 	private Box2DDebugRenderer debugRenderer;
+	private RayHandler handler;
+
+	public boolean useDebugRenderer;
 
 	public GameWorldRenderer(World world) {
 		cam.zoom = 1f;
@@ -20,6 +26,8 @@ public class GameWorldRenderer {
 		viewport = new ScalingViewport(Scaling.fit, LD29.VIEWPORT_WIDTH, LD29.VIEWPORT_HEIGHT);
 		stage = new Stage(viewport);
 		debugRenderer = new Box2DDebugRenderer();
+		handler = new RayHandler(world, LD29.VIEWPORT_WIDTH, LD29.VIEWPORT_HEIGHT);
+		handler.setAmbientLight(Colors.AMBIENT_LIGHT);
 	}
 
 	public OrthographicCamera getCam() {
@@ -30,14 +38,25 @@ public class GameWorldRenderer {
 		return stage;
 	}
 
-	public void draw() {
+	public RayHandler getRayHandler() {
+		return handler;
+	}
+
+	public void draw(Vector2 position) {
+		cam.position.set(position.x, position.y, 0);
 		cam.zoom = 1f;
 		cam.update();
 		stage.getViewport().setCamera(cam);
 		stage.draw();
+		cam.position.set(position.x / Entity.METERS_TO_PIXELS, position.y / Entity.METERS_TO_PIXELS, 0);
 		cam.zoom = 1f / Entity.METERS_TO_PIXELS;
 		cam.update();
-		debugRenderer.render(world, cam.combined);
+		handler.setCombinedMatrix(cam.combined);
+		handler.updateAndRender();
+		if (useDebugRenderer) {
+			debugRenderer.render(world, cam.combined);
+		}
+
 	}
 
 	public void update() {
