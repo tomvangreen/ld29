@@ -16,7 +16,7 @@ public class LD29 extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	private GameWorld gameWorld;
-	static final int VIEWPORT_WIDTH = 640;
+	static final int VIEWPORT_WIDTH = 800;
 	static final int VIEWPORT_HEIGHT = 480;
 
 	private Stage ui;
@@ -30,6 +30,13 @@ public class LD29 extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 		gameWorld = new GameWorld();
 		ui = new Stage(new ScalingViewport(Scaling.fit, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
+
+		screens.add(new Hud());
+
+		for (UiScreen screen : screens) {
+			screen.create(ui);
+			// screen.hide();
+		}
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -36,6 +38,7 @@ public class GameWorld {
 				factory.createMediumFood(x, y);
 			}
 		}
+
 	}
 
 	public void update(float delta) {
@@ -44,6 +47,25 @@ public class GameWorld {
 		}
 		world.step(1f / 60f, 6, 3);
 		renderer.update();
+		if (player != null) {
+			Vector2 velocity = player.getVelocity();
+			Gdx.app.log("PlayerSpeed", velocity.toString());
+			float length = velocity.len();
+			float minZoomVel = 0f;
+			float maxZoomVel = 32f;
+			if (length < minZoomVel) {
+				length = minZoomVel;
+			}
+			if (length > maxZoomVel) {
+				length = maxZoomVel;
+			}
+			Gdx.app.log("Trimmed Length", "" + length);
+			float value = (length - 1) / (maxZoomVel - minZoomVel);
+			Gdx.app.log("Value", "" + value);
+			float zoom = Interpolation.linear.apply(0.4f, 0.6f, value);
+			Gdx.app.log("Zoom", "" + zoom);
+			renderer.setSceneZoom(zoom);
+		}
 	}
 
 	public void draw() {

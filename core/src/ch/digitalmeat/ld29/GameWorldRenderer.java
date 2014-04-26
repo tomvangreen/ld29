@@ -20,6 +20,7 @@ public class GameWorldRenderer {
 
 	public boolean useDebugRenderer;
 	private GroundRenderer ground;
+	private float sceneZoom;
 
 	public GameWorldRenderer(World world) {
 		cam.zoom = 1f;
@@ -30,6 +31,7 @@ public class GameWorldRenderer {
 		handler = new RayHandler(world, LD29.VIEWPORT_WIDTH, LD29.VIEWPORT_HEIGHT);
 		// handler.setAmbientLight(Colors.AMBIENT_LIGHT);
 		ground = new GroundRenderer();
+		setSceneZoom(0.5f);
 	}
 
 	public OrthographicCamera getCam() {
@@ -46,13 +48,14 @@ public class GameWorldRenderer {
 
 	public void draw(Vector2 position) {
 		cam.position.set(position.x, position.y, 0);
-		cam.zoom = 1f;
+
+		cam.zoom = getSceneZoom();
 		cam.update();
 		stage.getViewport().setCamera(cam);
 		ground.draw(cam);
 		stage.draw();
 		cam.position.set(position.x / Entity.METERS_TO_PIXELS, position.y / Entity.METERS_TO_PIXELS, 0);
-		cam.zoom = 1f / Entity.METERS_TO_PIXELS;
+		cam.zoom = getSceneZoom() / Entity.METERS_TO_PIXELS;
 		cam.update();
 		handler.setCombinedMatrix(cam.combined);
 		handler.updateAndRender();
@@ -64,6 +67,14 @@ public class GameWorldRenderer {
 
 	public void update() {
 		stage.act();
+	}
+
+	public float getSceneZoom() {
+		return sceneZoom;
+	}
+
+	public void setSceneZoom(float sceneZoom) {
+		this.sceneZoom = sceneZoom;
 	}
 
 }
