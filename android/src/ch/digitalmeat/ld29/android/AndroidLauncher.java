@@ -1,10 +1,10 @@
-package com.mygdx.game.android;
+package ch.digitalmeat.ld29.android;
 
 import android.os.Bundle;
+import ch.digitalmeat.ld29.LD29;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.LD29;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

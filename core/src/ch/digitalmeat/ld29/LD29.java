@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package ch.digitalmeat.ld29;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

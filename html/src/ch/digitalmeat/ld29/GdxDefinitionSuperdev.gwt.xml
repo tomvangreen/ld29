@@ -6,7 +6,7 @@
 	<inherits name='Box2DLights' />
 
     <inherits name='LD29' />
-	<entry-point class='com.mygdx.game.client.HtmlLauncher' />
+	<entry-point class='ch.digitalmeat.ld29.client.HtmlLauncher' />
 	
 	<add-linker name="xsiframe"/>
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>

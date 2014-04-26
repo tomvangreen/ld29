@@ -1,8 +1,9 @@
-package com.mygdx.game.desktop;
+package ch.digitalmeat.ld29.desktop;
+
+import ch.digitalmeat.ld29.LD29;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.LD29;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
