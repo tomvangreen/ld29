@@ -68,7 +68,7 @@ public class GameWorld implements EatListener, SpawnListener {
 			// Gdx.app.log("PlayerSpeed", velocity.toString());
 			float length = velocity.len();
 			float minZoomVel = 0f;
-			float maxZoomVel = 32f;
+			float maxZoomVel = Entity.maxSpeed;
 			if (length < minZoomVel) {
 				length = minZoomVel;
 			}
@@ -78,7 +78,7 @@ public class GameWorld implements EatListener, SpawnListener {
 			// Gdx.app.log("Trimmed Length", "" + length);
 			float value = (length - 1) / (maxZoomVel - minZoomVel);
 			// Gdx.app.log("Value", "" + value);
-			float zoom = Interpolation.linear.apply(0.4f, 0.6f, value);
+			float zoom = Interpolation.linear.apply(0.35f, 0.5f, value);
 			// Gdx.app.log("Zoom", "" + zoom);
 			// zoom = 1f;
 			renderer.setSceneZoom(zoom);

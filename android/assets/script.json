@@ -38,22 +38,18 @@
 			, "delay": 5
 		}
 		, {
+			"action": "EnemyCap"
+			, "value": 3
+		}
+		, {
+			"action": "Populate"
+		}
+		, {
 			"action": "Sequence"
 			, "key": "start-03"
 		}
 		,  {
 			"action": "WaitForSequence"
-		}
-		, {
-			"action": "Wait"
-			, "delay": 2
-		}
-		, {
-			"action": "EnemyCap"
-			, "value": 5
-		}
-		, {
-			"action": "Populate"
 		}
 		, {
 			"action": "Sequence"

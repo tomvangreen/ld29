@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PlayerHandler {
 
-	private static final float LINEAR_FORCE = 8f;
+	private static final float LINEAR_FORCE = 2f;
 	private Entity entity;
 	private Vector2 force = new Vector2();
 	private Vector2 position = new Vector2();
