@@ -40,13 +40,14 @@ public class LD29 extends ApplicationAdapter {
 			screen.create(ui);
 			// screen.hide();
 		}
-
-		Events.factory.message("start", true, false);
+		Assets.script.setGameWorld(gameWorld);
+		// Events.factory.message("start-01", true, false);
 	}
 
 	@Override
 	public void render() {
 		float delta = Gdx.graphics.getDeltaTime();
+		Assets.script.update(delta);
 		gameWorld.update(delta);
 		ui.act(delta);
 		for (UiScreen screen : screens) {

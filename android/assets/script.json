@@ -1,0 +1,63 @@
+{
+	"script":[
+		{
+			"action": "Wait"
+			, "delay": 2
+		}
+		, {
+			"action": "Sequence"
+			, "key": "start-01"
+		}
+		,  {
+			"action": "WaitForSequence"
+		}
+		, {
+			"action": "Wait"
+			, "delay": 1
+		}
+		, {
+			"action": "FoodCap"
+			, "value": 125
+		}
+		, {
+			"action": "Wait"
+			, "delay": 2
+		}
+		, {
+			"action": "Populate"
+		}
+		, {
+			"action": "Sequence"
+			, "key": "start-02"
+		}
+		,  {
+			"action": "WaitForSequence"
+		}
+		, {
+			"action": "Wait"
+			, "delay": 5
+		}
+		, {
+			"action": "Sequence"
+			, "key": "start-03"
+		}
+		,  {
+			"action": "WaitForSequence"
+		}
+		, {
+			"action": "Wait"
+			, "delay": 2
+		}
+		, {
+			"action": "EnemyCap"
+			, "value": 5
+		}
+		, {
+			"action": "Populate"
+		}
+		, {
+			"action": "Sequence"
+			, "key": "start-04"
+		}
+	]
+}

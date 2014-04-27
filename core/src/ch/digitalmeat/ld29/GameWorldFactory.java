@@ -61,7 +61,7 @@ public class GameWorldFactory {
 		entity.type = EntityType.Food;
 		entity.food = new FoodData();
 		entity.food.foodValue = 1;
-		entity.setColor(Color.BLACK);
+		entity.setColor(Colors.TRANSPARENT);
 		entity.addAction(Actions.color(color, 2f));
 		entity.setZIndex(10);
 		applyRandomForce(entity.body, 1f);
@@ -81,7 +81,7 @@ public class GameWorldFactory {
 		entity.type = EntityType.Food;
 		entity.food = new FoodData();
 		entity.food.foodValue = 2;
-		entity.setColor(Color.BLACK);
+		entity.setColor(Colors.TRANSPARENT);
 		entity.addAction(Actions.color(color, 2f));
 		applyRandomForce(entity.body, 4f);
 		return entity;
@@ -101,7 +101,7 @@ public class GameWorldFactory {
 		entity.type = EntityType.Cell;
 		entity.regionScale = 1f / 8;
 		stage.addActor(entity);
-		entity.setColor(Color.BLACK);
+		entity.setColor(Colors.TRANSPARENT);
 		entity.addAction(Actions.color(color, 2f));
 		return entity;
 	}

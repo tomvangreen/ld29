@@ -22,6 +22,7 @@ public class Assets {
 	public static Sound blip01;
 	public static Json json;
 	private static List<Message> messages;
+	public static Script script;
 
 	public static void create() {
 		json = new Json(OutputType.json);
@@ -38,6 +39,7 @@ public class Assets {
 
 		blip01 = Gdx.audio.newSound(Gdx.files.internal("blip01.wav"));
 		getMessages();
+		script = json.fromJson(Script.class, Gdx.files.internal("script.json"));
 	}
 
 	public static List<Message> getMessages() {

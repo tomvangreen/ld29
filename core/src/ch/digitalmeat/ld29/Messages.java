@@ -65,9 +65,12 @@ public class Messages implements UiScreen, ShowMessageHandler {
 		table.setVisible(false);
 	}
 
+	private boolean notifiedEmpty = false;
+
 	@Override
 	public void update(float delta) {
 		if (currentMessage == null && messages.size() > 0) {
+			notifiedEmpty = false;
 			showMessage(messages.remove(0));
 		}
 	}
@@ -86,6 +89,10 @@ public class Messages implements UiScreen, ShowMessageHandler {
 				@Override
 				public void run() {
 					currentMessage = null;
+					if (messages.size() == 0) {
+						Events.factory.messageComplete();
+						notifiedEmpty = true;
+					}
 				}				
 			})
 		));

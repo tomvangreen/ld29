@@ -41,20 +41,6 @@ public class GameWorld implements EatListener, SpawnListener {
 		world.setContactListener(contactListener);
 		random = new Random();
 		spawner = new Spawner(factory, random, min, max, min, max);
-		// enemies.add(factory.createCell(5, 2, Colors.ENEMY_WEAK));
-		// enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
-		// enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
-		//
-		// int generateFood = 100;
-		// while (generateFood-- > 0) {
-		// float x = random.nextFloat() * 60 - 30;
-		// float y = random.nextFloat() * 60 - 30;
-		// if (random.nextBoolean()) {
-		// factory.createSmallFood(x, y);
-		// } else {
-		// factory.createMediumFood(x, y);
-		// }
-		// }
 		spawner.populate();
 		min = -35;
 		max = 35;
@@ -127,5 +113,9 @@ public class GameWorld implements EatListener, SpawnListener {
 			break;
 		}
 
+	}
+
+	public Spawner getSpawner() {
+		return spawner;
 	}
 }

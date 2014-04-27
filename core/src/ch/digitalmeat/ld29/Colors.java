@@ -18,4 +18,5 @@ public class Colors {
 
 	public final static Color FOOD_SMALL = new Color(30 / 255f, 50 / 255f, 21 / 255f, 1f);
 	public final static Color FOOD_MEDIUM = new Color(75 / 255f, 105 / 255f, 47 / 255f, 1f);
+	public final static Color TRANSPARENT = new Color(0f, 0f, 0f, 0f);
 }

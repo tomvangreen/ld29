@@ -1,6 +1,5 @@
 package ch.digitalmeat.ld29;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -39,19 +38,19 @@ public class GroundRenderer extends Actor {
 		float regionWidth = ground.getRegionWidth();
 		float regionHeight = ground.getRegionHeight();
 
-		int xDraws = (int) (stageWidth / regionWidth) + 2;
-		int yDraws = (int) (stageHeight / regionHeight) + 2;
-
-		int xOffset = 0;
-		int yOffset = 0;
-		Gdx.app.log("Cam", cam.position.toString());
-		Gdx.app.log("x offset", "" + xOffset);
+		// int xDraws = (int) (stageWidth / regionWidth) + 2;
+		// int yDraws = (int) (stageHeight / regionHeight) + 2;
+		//
+		// int xOffset = 0;
+		// int yOffset = 0;
+		// Gdx.app.log("Cam", cam.position.toString());
+		// Gdx.app.log("x offset", "" + xOffset);
 		batch.setColor(Color.WHITE);
 		int xs = -5;
 		int ys = -5;
 		for (int y = startY; y < endY; y++) {
 			for (int x = startX; x < endX; x++) {
-				batch.draw(ground, x * regionWidth + xOffset, y * regionHeight + yOffset, regionWidth, regionHeight);
+				batch.draw(ground, x * regionWidth, y * regionHeight, regionWidth, regionHeight);
 			}
 		}
 		// batch.end();

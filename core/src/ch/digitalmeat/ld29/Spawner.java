@@ -4,7 +4,6 @@ import java.util.Random;
 
 import ch.digitalmeat.ld29.event.Events;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class Spawner {
@@ -12,9 +11,9 @@ public class Spawner {
 	private GameWorldFactory factory;
 
 	public int food;
-	public int foodCap = 100;
+	public int foodCap = 0;
 	public int enemy;
-	public int enemyCap = 10;
+	public int enemyCap = 0;
 
 	private float minX;
 
@@ -84,7 +83,7 @@ public class Spawner {
 			Entity entity = factory.createCell(position.x, position.y, Colors.ENEMY_STRONG);
 			Events.factory.spawn(entity);
 			enemy++;
-			Gdx.app.log("Spawner", "Enemy created");
+			// Gdx.app.log("Spawner", "Enemy created");
 			return true;
 		}
 		return false;
@@ -101,7 +100,7 @@ public class Spawner {
 			}
 			Events.factory.spawn(entity);
 			food++;
-			Gdx.app.log("Spawner", "Food created");
+			// Gdx.app.log("Spawner", "Food created");
 			return true;
 		}
 		return false;

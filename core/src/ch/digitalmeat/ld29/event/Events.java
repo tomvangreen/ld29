@@ -47,4 +47,12 @@ public class Events {
 		event.entity = entity;
 		queue.queue(event);
 	}
+
+	private MessageComplete newMessageComplete() {
+		return new MessageComplete();
+	}
+
+	public void messageComplete() {
+		queue.queue(newMessageComplete());
+	}
 }
