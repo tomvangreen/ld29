@@ -45,4 +45,8 @@ public class PlayerHandler {
 		return entity.body.getLinearVelocity();
 	}
 
+	public Entity getEntity() {
+		return entity;
+	}
+
 }

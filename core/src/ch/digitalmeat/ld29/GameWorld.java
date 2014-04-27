@@ -52,10 +52,12 @@ public class GameWorld implements EatListener {
 
 	}
 
+	public Entity getPlayer() {
+		return player.getEntity();
+	}
+
 	public void update(float delta) {
-		if (player != null) {
-			player.handleInput();
-		}
+		player.handleInput();
 		world.step(1f / 60f, 6, 3);
 		renderer.update();
 		if (player != null) {
@@ -87,6 +89,8 @@ public class GameWorld implements EatListener {
 	public void eat(Entity cell, Entity food) {
 		Gdx.app.log("Contact", "Eat");
 		Assets.blip01.play(0.5f);
-
+		cell.cell.eat(food.food.foodValue);
+		world.destroyBody(food.body);
+		food.remove();
 	}
 }

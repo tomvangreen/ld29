@@ -24,6 +24,8 @@ public class Entity extends Actor {
 
 	public float regionScale = 1f;
 
+	public FoodData food;
+
 	@Override
 	public void act(float delta) {
 		super.act(delta);

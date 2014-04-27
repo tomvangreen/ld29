@@ -10,6 +10,11 @@ public class Hud implements UiScreen {
 	private Table table;
 	private ProgressBar foodBar;
 	private ProgressBar lifeBar;
+	private Entity player;
+
+	public Hud(Entity player) {
+		this.player = player;
+	}
 
 	@Override
 	public void create(Stage stage) {
@@ -43,7 +48,9 @@ public class Hud implements UiScreen {
 
 	@Override
 	public void update(float delta) {
-
+		CellData cell = player.cell;
+		lifeBar.setValue(cell.life, cell.lifeCap);
+		foodBar.setValue(cell.food, cell.foodCap);
 	}
 
 }

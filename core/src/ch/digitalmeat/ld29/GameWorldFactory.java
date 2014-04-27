@@ -50,13 +50,15 @@ public class GameWorldFactory {
 	public Entity createSmallFood(float x, float y) {
 		Color color = Colors.FOOD_SMALL;
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.0625f, MASK_FOOD);
+		entity.body = createBody(x, y, 0.0625f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
 		entity.light = new PointLight(rayHandler, 50, color, 1.5f, x, y);
 		stage.addActor(entity);
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Food;
+		entity.food = new FoodData();
+		entity.food.foodValue = 1;
 		applyRandomForce(entity.body, 1f);
 		return entity;
 	}
@@ -64,13 +66,15 @@ public class GameWorldFactory {
 	public Entity createMediumFood(float x, float y) {
 		Color color = Colors.FOOD_MEDIUM;
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.125f, MASK_FOOD);
+		entity.body = createBody(x, y, 0.125f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
 		entity.light = new PointLight(rayHandler, 50, color, 3, x, y);
 		stage.addActor(entity);
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Food;
+		entity.food = new FoodData();
+		entity.food.foodValue = 2;
 		applyRandomForce(entity.body, 4f);
 		return entity;
 	}
@@ -81,12 +85,10 @@ public class GameWorldFactory {
 
 	public Entity createCell(float x, float y, Color color) {
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.5f, MASK_CELL);
+		entity.body = createBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
 		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
 		entity.cell = new CellData();
-		entity.cell.currentFood = 10;
-		entity.cell.foodCap = 50;
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Cell;
 		entity.regionScale = 1f / 8;
@@ -94,7 +96,7 @@ public class GameWorldFactory {
 		return entity;
 	}
 
-	public Body createCellBody(float x, float y, float radius, short categoryBits) {
+	public Body createBody(float x, float y, float radius, short categoryBits) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(x, y);
