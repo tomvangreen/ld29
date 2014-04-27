@@ -38,10 +38,10 @@ public class Entity extends Actor {
 			body.setLinearVelocity(velocity.scl(maxSpeed / speed));
 		}
 
-		lightColor.set(getColor());
-		// lightColor.a = 0.75f;
 		setPosition(body.getPosition().x * METERS_TO_PIXELS, body.getPosition().y * METERS_TO_PIXELS);
 		setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+		lightColor.set(getColor());
+		// lightColor.a = 0.75f;
 		light.setColor(lightColor);
 		light.setPosition(body.getPosition());
 	}

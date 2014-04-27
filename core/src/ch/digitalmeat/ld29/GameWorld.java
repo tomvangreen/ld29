@@ -29,16 +29,17 @@ public class GameWorld implements EatListener, SpawnListener {
 	public GameWorld() {
 		Events.factory.getQueue().listen(Spawn.class, this);
 		world = new World(gravity, true);
-		renderer = new GameWorldRenderer(world);
+		float min = -30;
+		float max = 30;
+		renderer = new GameWorldRenderer(world, max - min, max - min);
 		renderer.useDebugRenderer = false;
+
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
 
 		contactListener = new EntityContactListener();
 		world.setContactListener(contactListener);
 		random = new Random();
-		float min = -30;
-		float max = 30;
 		spawner = new Spawner(factory, random, min, max, min, max);
 		// enemies.add(factory.createCell(5, 2, Colors.ENEMY_WEAK));
 		// enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
@@ -93,6 +94,7 @@ public class GameWorld implements EatListener, SpawnListener {
 			// Gdx.app.log("Value", "" + value);
 			float zoom = Interpolation.linear.apply(0.4f, 0.6f, value);
 			// Gdx.app.log("Zoom", "" + zoom);
+			// zoom = 1f;
 			renderer.setSceneZoom(zoom);
 		}
 		spawner.update(delta);
