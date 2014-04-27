@@ -23,9 +23,11 @@ public class Hud implements UiScreen {
 		foodBar.setValue(5, 10);
 		lifeBar = new ProgressBar(skin, Colors.LIFE_BAR, Colors.BAR_BACKGROUND);
 		lifeBar.setValue(5, 10);
-		bars.add(foodBar).prefHeight(20);
-		bars.add(lifeBar).prefHeight(20);
-		table.add(bars).expandX().fillX().prefHeight(20);
+		bars.add("Life", "progress");
+		bars.add(lifeBar).prefHeight(20).expandX().fillX();
+		bars.add("Food", "progress");
+		bars.add(foodBar).prefHeight(20).expandX().fillX();
+		table.add(bars).expandX().fillX().expandX().prefHeight(20);
 		stage.addActor(table);
 	}
 

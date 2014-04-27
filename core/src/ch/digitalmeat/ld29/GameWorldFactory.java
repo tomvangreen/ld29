@@ -4,6 +4,7 @@ import java.util.Random;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
+import ch.digitalmeat.ld29.Entity.EntityType;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +17,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameWorldFactory {
+
+	public final static short MASK_CELL = 0x0001;
+	public final static short MASK_FOOD = 0x0002;
+
 	public final static float FOOD_FORCE = 0.25f;
 	public final static float FOOD_ROTATION_FORCE = 0.0001f;
 	private World world;
@@ -45,11 +50,13 @@ public class GameWorldFactory {
 	public Entity createSmallFood(float x, float y) {
 		Color color = Colors.FOOD_SMALL;
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.0625f);
+		entity.body = createCellBody(x, y, 0.0625f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
 		entity.light = new PointLight(rayHandler, 50, color, 1.5f, x, y);
 		stage.addActor(entity);
+		entity.body.setUserData(entity);
+		entity.type = EntityType.Food;
 		applyRandomForce(entity.body, 1f);
 		return entity;
 	}
@@ -57,11 +64,13 @@ public class GameWorldFactory {
 	public Entity createMediumFood(float x, float y) {
 		Color color = Colors.FOOD_MEDIUM;
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.125f);
+		entity.body = createCellBody(x, y, 0.125f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
 		entity.light = new PointLight(rayHandler, 50, color, 3, x, y);
 		stage.addActor(entity);
+		entity.body.setUserData(entity);
+		entity.type = EntityType.Food;
 		applyRandomForce(entity.body, 4f);
 		return entity;
 	}
@@ -72,17 +81,20 @@ public class GameWorldFactory {
 
 	public Entity createCell(float x, float y, Color color) {
 		Entity entity = new Entity();
-		entity.body = createCellBody(x, y, 0.4f);
+		entity.body = createCellBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
 		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
 		entity.cell = new CellData();
 		entity.cell.currentFood = 10;
 		entity.cell.foodCap = 50;
+		entity.body.setUserData(entity);
+		entity.type = EntityType.Cell;
+		entity.regionScale = 1f / 8;
 		stage.addActor(entity);
 		return entity;
 	}
 
-	public Body createCellBody(float x, float y, float radius) {
+	public Body createCellBody(float x, float y, float radius, short categoryBits) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(x, y);
@@ -96,6 +108,7 @@ public class GameWorldFactory {
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.3f;
 		fixtureDef.restitution = 0.5f;
+		fixtureDef.filter.categoryBits = categoryBits;
 
 		body.createFixture(fixtureDef);
 

@@ -2,7 +2,6 @@ package ch.digitalmeat.ld29;
 
 import ch.digitalmeat.ld29.ProgressFormatter.DefaultIntProgressFormatter;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -59,7 +58,7 @@ public class ProgressBar extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		Gdx.app.log("Progress Bar", "Draw");
+		// Gdx.app.log("Progress Bar", "Draw");
 		float x = getX();
 		float y = getY();
 		float width = getWidth();

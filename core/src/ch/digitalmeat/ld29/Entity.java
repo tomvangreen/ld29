@@ -20,6 +20,10 @@ public class Entity extends Actor {
 
 	public TextureRegion region = Assets.cell;
 
+	public EntityType type;
+
+	public float regionScale = 1f;
+
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -33,8 +37,8 @@ public class Entity extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		int regionWidth = region.getRegionWidth();
-		int regionHeight = region.getRegionHeight();
+		int regionWidth = (int) (region.getRegionWidth() * regionScale);
+		int regionHeight = (int) (region.getRegionHeight() * regionScale);
 		int halfRegionWidth = regionWidth / 2;
 		int halfRegionHeight = regionHeight / 2;
 		float x = getX() - halfRegionWidth;
@@ -43,5 +47,9 @@ public class Entity extends Actor {
 		batch.setColor(getColor());
 		batch.draw(region, x, y, halfRegionWidth, halfRegionHeight, regionWidth, regionHeight, 1f, 1f, getRotation());
 		// batch.draw(region, x, y);
+	}
+
+	public enum EntityType {
+		Cell, Food
 	}
 }
