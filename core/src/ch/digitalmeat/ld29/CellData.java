@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CellData {
 	public int food = 0;
-	public int foodCap = 10;
+	public int foodCap = 5;
 	public int life = 10;
 	public int lifeCap = 10;
 	public int levelUps = 0;
@@ -16,7 +16,7 @@ public class CellData {
 		while (food >= foodCap) {
 			levelUps++;
 			food -= foodCap;
-			foodCap = foodCap * 3 / 2;
+			foodCap = foodCap * 5 / 4;
 		}
 	}
 
