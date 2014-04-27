@@ -26,7 +26,7 @@ public class GameWorld implements EatListener {
 	public GameWorld() {
 		world = new World(gravity, true);
 		renderer = new GameWorldRenderer(world);
-		renderer.useDebugRenderer = true;
+		renderer.useDebugRenderer = false;
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
 
@@ -100,6 +100,9 @@ public class GameWorld implements EatListener {
 		cell.cell.eat(food.food.foodValue);
 		world.destroyBody(food.body);
 		food.remove();
+		if (food.light != null) {
+			food.light.remove();
+		}
 		while (cell.cell.levelUps > 0) {
 			Gdx.app.log("Eat", "LevelUp");
 			cell.cell.levelUps--;
