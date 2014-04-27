@@ -5,15 +5,18 @@ import box2dLight.PositionalLight;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Entity extends Actor {
+	public static final float MAX_SPEED = 4f;
+	public static final float MAX_SPEED_THRUSTED = 6f;
 	public final static float METERS_TO_PIXELS = 16;
-	public static float MAX_SPEED = 4f;
-
+	public float maxSpeed = MAX_SPEED;
+	public boolean thrusting;
 	private Color lightColor = new Color();
 
 	public Body body;
@@ -33,18 +36,38 @@ public class Entity extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		Vector2 velocity = body.getLinearVelocity();
-		float speed = velocity.len();
-		if (speed > MAX_SPEED) {
-			body.setLinearVelocity(velocity.scl(MAX_SPEED / speed));
+		maxSpeed = thrusting ? MAX_SPEED_THRUSTED : MAX_SPEED;
+		if (body != null) {
+			Vector2 velocity = body.getLinearVelocity();
+			float speed = velocity.len();
+
+			if (speed > maxSpeed) {
+				body.setLinearVelocity(velocity.scl(maxSpeed / speed));
+			}
+			setPosition(body.getPosition().x * METERS_TO_PIXELS, body.getPosition().y * METERS_TO_PIXELS);
+			setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 		}
 
-		setPosition(body.getPosition().x * METERS_TO_PIXELS, body.getPosition().y * METERS_TO_PIXELS);
-		setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+		if (type == EntityType.Cell && active) {
+			float scale = (0f + cell.life) / cell.lifeCap;
+			//@formatter:off
+			setColor(
+				Interpolation.linear.apply(Colors.ENEMY_STRONG.r, Colors.PLAYER_COLOR.r, scale)
+				, Interpolation.linear.apply(Colors.ENEMY_STRONG.g, Colors.PLAYER_COLOR.g, scale)
+				, Interpolation.linear.apply(Colors.ENEMY_STRONG.b, Colors.PLAYER_COLOR.b, scale)
+				, Interpolation.linear.apply(Colors.ENEMY_STRONG.a, Colors.PLAYER_COLOR.a, scale)
+			);
+			//@formatter:on
+		}
+
 		lightColor.set(getColor());
 		// lightColor.a = 0.75f;
-		light.setColor(lightColor);
-		light.setPosition(body.getPosition());
+		if (light != null) {
+			light.setColor(lightColor);
+			if (body != null) {
+				light.setPosition(body.getPosition());
+			}
+		}
 	}
 
 	@Override

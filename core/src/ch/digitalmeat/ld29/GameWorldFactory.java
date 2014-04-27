@@ -97,7 +97,7 @@ public class GameWorldFactory {
 		Entity entity = new Entity();
 		entity.body = createRoundBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
-		entity.light = new PointLight(rayHandler, 300, Colors.TRANSPARENT, 7.5f, x, y);
+		entity.light = new PointLight(rayHandler, 200, Colors.TRANSPARENT, 7.5f, x, y);
 		entity.cell = new CellData();
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Cell;

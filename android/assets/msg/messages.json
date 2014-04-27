@@ -13,12 +13,6 @@
 			, "message": "Use the arrow keys or WASD to move around"
 		}
 		, {
-			"key": "start-01.d"
-			, "sequence": "start-01"
-			, "time": 4
-			, "message": "The red bar shows your life. When it goes to zero you will die."
-		}
-		, {
 			"key": "start-04"
 			, "sequence": "start-02"
 			, "time": 4
@@ -29,6 +23,24 @@
 			, "sequence": "start-02"
 			, "time": 4
 			, "message": "When the bar is full, your cell levels up."
+		}
+		, {
+			"key": "start-01.d"
+			, "sequence": "start-02"
+			, "time": 4
+			, "message": "The red bar shows your life. When it goes to zero you will die."
+		}
+		, {
+			"key": "start-01.d"
+			, "sequence": "start-02"
+			, "time": 4
+			, "message": "Press space to increase your speed."
+		}
+		, {
+			"key": "start-01.d"
+			, "sequence": "start-02"
+			, "time": 4
+			, "message": "This will use up your food."
 		}
 		, {
 			"key": "start-05"
@@ -42,23 +54,37 @@
 			, "time": 4
 			, "message": "Watch out, you are not alone in this murky waters."
 		}
+
 		, {
 			"key": "start-05"
 			, "sequence": "start-03"
-			, "time": 4
-			, "message": "The blue bar shows your attack strength. By attacking you use up your strength."
-		}
-		, {
-			"key": "start-05"
-			, "sequence": "start-04"
 			, "time": 4
 			, "message": "You can attack the enemy cells by bumping in to them."
 		}
 		, {
 			"key": "start-05"
-			, "sequence": "start-04"
+			, "sequence": "start-03"
 			, "time": 4
-			, "message": "But watch out, red enemies are stronger than you."
+			, "message": "The blue bar shows your attack strength."
 		}
+		, {
+			"key": ""
+			, "sequence": "increase"
+			, "time": 4
+			, "message": "There is more food. "
+		}
+		, {
+			"key": ""
+			, "sequence": "increase"
+			, "time": 4
+			, "message": "More food means more competition."
+		}
+		, {
+			"key": ""
+			, "sequence": "increase"
+			, "time": 4
+			, "message": "Stronger competition..."
+		}
+		
 	]
 }

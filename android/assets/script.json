@@ -17,14 +17,14 @@
 		}
 		, {
 			"action": "FoodCap"
-			, "value": 125
+			, "value": 50
+		}
+		, {
+			"action": "Populate"
 		}
 		, {
 			"action": "Wait"
 			, "delay": 2
-		}
-		, {
-			"action": "Populate"
 		}
 		, {
 			"action": "Sequence"
@@ -39,7 +39,7 @@
 		}
 		, {
 			"action": "EnemyCap"
-			, "value": 3
+			, "value": 2
 		}
 		, {
 			"action": "Populate"
@@ -48,12 +48,34 @@
 			"action": "Sequence"
 			, "key": "start-03"
 		}
-		,  {
+		, {
 			"action": "WaitForSequence"
+		}		
+		, {
+			"action": "Wait"
+			, "delay": 45
+		}
+		, {
+			"action": "EnemyCap"
+			, "value": 5
+		}
+		, {
+			"action": "Populate"
+		}
+		, {
+			"action": "FoodCap"
+			, "value": 100
+		}
+		, {
+			"action": "Populate"
+		}
+		, {
+			"action": "FoodCap"
+			, "value": 200
 		}
 		, {
 			"action": "Sequence"
-			, "key": "start-04"
+			, "key": "increase"
 		}
 	]
 }

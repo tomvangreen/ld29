@@ -19,7 +19,6 @@ import ch.digitalmeat.ld29.event.Events;
 import ch.digitalmeat.ld29.event.Spawn;
 import ch.digitalmeat.ld29.event.SpawnListener;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -80,8 +79,8 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 		cameraActor.setScale(zoom);
 		renderer.getStage().addActor(cameraActor);
 		updateCamera();
-		// //Lol cheater ;)
-		// int bla = 100;
+		// // Lol cheater ;)
+		// int bla = 10;
 		// while (bla-- > 0) {
 		// player.getEntity().cell.levelUp(random);
 		// }
@@ -109,7 +108,7 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 			// Gdx.app.log("PlayerSpeed", velocity.toString());
 			float length = velocity.len();
 			float minZoomVel = 0f;
-			float maxZoomVel = Entity.MAX_SPEED;
+			float maxZoomVel = Entity.MAX_SPEED_THRUSTED;
 			if (length < minZoomVel) {
 				length = minZoomVel;
 			}
@@ -119,7 +118,7 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 			// Gdx.app.log("Trimmed Length", "" + length);
 			float value = (length - 1) / (maxZoomVel - minZoomVel);
 			// Gdx.app.log("Value", "" + value);
-			zoomTarget = Interpolation.linear.apply(0.35f, 0.5f, value);
+			zoomTarget = Interpolation.linear.apply(0.35f, 0.55f, value);
 			// Gdx.app.log("Zoom", "" + zoom);
 			// zoom = 1f;
 		}
@@ -160,11 +159,11 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 
 	@Override
 	public void eat(Entity cell, Entity food) {
-		Gdx.app.log("Contact", "Eat");
+		// Gdx.app.log("Contact", "Eat");
 		Assets.blip01.play(0.5f);
 		cell.cell.eat(food.food.foodValue);
 		while (cell.cell.levelUps > 0) {
-			Gdx.app.log("Eat", "LevelUp");
+			// Gdx.app.log("Eat", "LevelUp");
 			cell.cell.levelUps--;
 			cell.cell.levelUp(random);
 		}
@@ -222,9 +221,10 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 				} else {
 					v1.set(test.getX(), test.getY());
 					float v2Length = v1.sub(v2).len();
-					Gdx.app.log("Ai", "Old Length: " + length + ", New Length: " + v2.len());
+					// Gdx.app.log("Ai", "Old Length: " + length +
+					// ", New Length: " + v2.len());
 					if (v2Length < length) {
-						Gdx.app.log("Ai", "Taking new length");
+						// Gdx.app.log("Ai", "Taking new length");
 						candidate = test;
 						length = v2Length;
 					}

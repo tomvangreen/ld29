@@ -1,6 +1,5 @@
 package ch.digitalmeat.ld29;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class AiCellHandler extends CellHandler {
@@ -38,9 +37,9 @@ public class AiCellHandler extends CellHandler {
 		}
 		if (cell.target == null) {
 			cell.target = gameWorld.findNearestFood(entity);
-			if (cell.target != null) {
-				Gdx.app.log("Ai", "Targeting " + cell.target.type);
-			}
+			// if (cell.target != null) {
+			// // Gdx.app.log("Ai", "Targeting " + cell.target.type);
+			// }
 		}
 	}
 }

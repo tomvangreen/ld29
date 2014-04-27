@@ -19,7 +19,10 @@ public class CellData {
 		while (food >= foodCap) {
 			levelUps++;
 			food -= foodCap;
-			foodCap = foodCap * 5 / 4;
+		}
+		life += value;
+		if (life > lifeCap) {
+			life = lifeCap;
 		}
 		attack += value;
 		if (attack > attackCap) {
@@ -32,13 +35,15 @@ public class CellData {
 		switch (choice) {
 		case 0:
 		default:
-			attackCap += 2;
+			attackCap += 5;
 			break;
 		case 1:
-			lifeCap += 5;
+			lifeCap += 7;
 			break;
 		}
-		life = lifeCap;
-		attack = attackCap;
+		// Gdx.app.log("Food Cap", "" + foodCap);
+		foodCap = foodCap + 1 + (foodCap / 10);
+		// life = lifeCap;
+		// attack = attackCap;
 	}
 }

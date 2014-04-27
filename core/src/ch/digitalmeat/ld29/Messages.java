@@ -79,7 +79,9 @@ public class Messages implements UiScreen, ShowMessageHandler {
 		currentMessage = message;
 		label.addAction(alpha(0));
 		label.act(1f);
+		label.setFontScale(1.5f);
 		label.setText(message.message);
+
 		//@formatter:off
 		label.addAction(sequence(
 			alpha(1f, FADE_TIME)
