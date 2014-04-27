@@ -9,14 +9,26 @@
 		, {
 			"key": "start-02"
 			, "sequence": "start"
-			, "time": 3
+			, "time": 4
 			, "message": "Use the arrow keys or ASWD to move around"
 		}
 		, {
 			"key": "start-03"
 			, "sequence": "start"
-			, "time": 3
-			, "message": "Use the arrow keys or ASWD to move around"
+			, "time": 4
+			, "message": "The red bar shows your life. When it goes to zero you will die."
+		}
+		, {
+			"key": "start-04"
+			, "sequence": "start"
+			, "time": 4
+			, "message": "The green bar shows your food level. When it fills up, your cell levels up."
+		}
+		, {
+			"key": "start-05"
+			, "sequence": "start"
+			, "time": 4
+			, "message": "The blue bar shows your attack strength."
 		}
 	]
 }

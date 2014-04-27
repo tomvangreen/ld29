@@ -45,6 +45,7 @@ public class Messages implements UiScreen, ShowMessageHandler {
 			messageBank.put(message.key, message);
 			ensureSequence(message.sequence).add(message);
 		}
+		stage.addActor(table);
 	}
 
 	public List<Message> ensureSequence(String key) {
