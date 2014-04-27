@@ -1,5 +1,11 @@
 package ch.digitalmeat.ld29;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +21,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class GameWorld implements EatListener, SpawnListener {
 	public final static Vector2 gravity = new Vector2(0, 0);
@@ -32,6 +39,7 @@ public class GameWorld implements EatListener, SpawnListener {
 	private Vector2 v1 = new Vector2();
 	private Vector2 v2 = new Vector2();
 	private AiCellHandler ai;
+	private Actor cameraActor;
 
 	public GameWorld() {
 		Events.factory.getQueue().listen(Spawn.class, this);
@@ -62,12 +70,13 @@ public class GameWorld implements EatListener, SpawnListener {
 		ai = new AiCellHandler(this);
 		camPosition.set(player.getPosition());
 		camTarget.set(player.getPosition());
-		nextTarget.set(player.getPosition());
-		lastTarget.set(player.getPosition());
 		zoom = 0.35f;
-		nextZoom = zoom;
-		lastZoom = zoom;
 		zoomTarget = zoom;
+		cameraActor = new Actor();
+		cameraActor.setPosition(camTarget.x, camTarget.y);
+		cameraActor.setScale(zoom);
+		renderer.getStage().addActor(cameraActor);
+		updateCamera();
 	}
 
 	public Entity getPlayer() {
@@ -76,14 +85,9 @@ public class GameWorld implements EatListener, SpawnListener {
 
 	private float zoom;
 	private float zoomTarget;
-	private float lastZoom;
-	private float nextZoom;
 	private Vector2 camPosition = new Vector2();
 	private Vector2 camTarget = new Vector2();
-	private Vector2 nextTarget = new Vector2();
-	private Vector2 lastTarget = new Vector2();
-	private float camTimer = 0;
-	public final static float CAM_UPDATE_TIME = 0.4f;
+	public final static float CAM_UPDATE_TIME = 0.5f;
 
 	public void update(float delta) {
 		player.handleInput();
@@ -97,7 +101,7 @@ public class GameWorld implements EatListener, SpawnListener {
 			// Gdx.app.log("PlayerSpeed", velocity.toString());
 			float length = velocity.len();
 			float minZoomVel = 0f;
-			float maxZoomVel = Entity.maxSpeed;
+			float maxZoomVel = Entity.MAX_SPEED;
 			if (length < minZoomVel) {
 				length = minZoomVel;
 			}
@@ -115,26 +119,31 @@ public class GameWorld implements EatListener, SpawnListener {
 
 		camTarget.set(player.getPosition());
 
-		camTimer -= delta;
-		float scale = (CAM_UPDATE_TIME - camTimer) / CAM_UPDATE_TIME;
-		if (camTimer < 0) {
-			camTimer = CAM_UPDATE_TIME;
-			// zoom = zoomTarget;
-			camPosition.set(camTarget);
-			lastTarget.set(nextTarget);
-			nextTarget.set(camTarget);
-			lastZoom = nextZoom;
-			nextZoom = zoomTarget;
-			camPosition.set(lastTarget);
-			zoom = lastZoom;
-		} else {
+		camPosition.x = cameraActor.getX();
+		camPosition.y = cameraActor.getY();
+		renderer.setSceneZoom(cameraActor.getScaleX());
 
-			// Gdx.app.log("GameWorld", "Scale: " + scale);
-			camPosition.x = Interpolation.linear.apply(lastTarget.x, nextTarget.x, scale);
-			camPosition.y = Interpolation.linear.apply(lastTarget.y, nextTarget.y, scale);
-			zoom = Interpolation.linear.apply(lastZoom, nextZoom, scale);
-			renderer.setSceneZoom(zoom);
-		}
+	}
+
+	private void updateCamera() {
+		//@formatter:off
+		cameraActor.addAction(
+			sequence(
+				parallel(
+					scaleTo(zoomTarget, zoomTarget, CAM_UPDATE_TIME)
+					, moveTo(camTarget.x, camTarget.y, CAM_UPDATE_TIME)
+				)
+				, run(new Runnable(){
+
+					@Override
+					public void run() {
+						updateCamera();
+					}
+					
+				})
+			)
+		);
+		// @formatter:on
 	}
 
 	public void draw() {

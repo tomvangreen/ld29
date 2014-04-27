@@ -52,7 +52,13 @@
 			"key": "start-05"
 			, "sequence": "start-04"
 			, "time": 4
-			, "message": "You can attack the enemy cells by pressing the SPACE key."
+			, "message": "You can attack the enemy cells by bumping in to them."
+		}
+		, {
+			"key": "start-05"
+			, "sequence": "start-04"
+			, "time": 4
+			, "message": "But watch out, red enemies are stronger than you."
 		}
 	]
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Entity extends Actor {
 	public final static float METERS_TO_PIXELS = 16;
+	public static float MAX_SPEED = 4f;
 
 	private Color lightColor = new Color();
 
@@ -29,15 +30,13 @@ public class Entity extends Actor {
 
 	public boolean active;
 
-	public static float maxSpeed = 6f;
-
 	@Override
 	public void act(float delta) {
 		super.act(delta);
 		Vector2 velocity = body.getLinearVelocity();
 		float speed = velocity.len();
-		if (speed > maxSpeed) {
-			body.setLinearVelocity(velocity.scl(maxSpeed / speed));
+		if (speed > MAX_SPEED) {
+			body.setLinearVelocity(velocity.scl(MAX_SPEED / speed));
 		}
 
 		setPosition(body.getPosition().x * METERS_TO_PIXELS, body.getPosition().y * METERS_TO_PIXELS);

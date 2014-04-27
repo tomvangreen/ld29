@@ -27,7 +27,7 @@ public class Spawner {
 
 	private Random random;
 
-	public static float SPAWN_INTERVAL = 4f;
+	public static float SPAWN_INTERVAL = 0.5f;
 	private float timer = SPAWN_INTERVAL;
 
 	public Spawner(GameWorldFactory factory, Random random, float minX, float maxX, float minY, float maxY) {
