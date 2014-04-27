@@ -18,8 +18,8 @@ public class LD29 extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	private GameWorld gameWorld;
-	static final int VIEWPORT_WIDTH = 800;
-	static final int VIEWPORT_HEIGHT = 480;
+	public static final int VIEWPORT_WIDTH = 800;
+	public static final int VIEWPORT_HEIGHT = 480;
 
 	private Stage ui;
 

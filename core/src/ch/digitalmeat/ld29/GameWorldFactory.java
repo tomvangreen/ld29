@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -50,7 +51,7 @@ public class GameWorldFactory {
 	public Entity createSmallFood(float x, float y) {
 		Color color = Colors.FOOD_SMALL;
 		Entity entity = new Entity();
-		entity.body = createBody(x, y, 0.0625f, MASK_FOOD);
+		entity.body = createRoundBody(x, y, 0.0625f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
 		entity.light = new PointLight(rayHandler, 50, color, 1.5f, x, y);
@@ -66,7 +67,7 @@ public class GameWorldFactory {
 	public Entity createMediumFood(float x, float y) {
 		Color color = Colors.FOOD_MEDIUM;
 		Entity entity = new Entity();
-		entity.body = createBody(x, y, 0.125f, MASK_FOOD);
+		entity.body = createRoundBody(x, y, 0.125f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
 		entity.light = new PointLight(rayHandler, 50, color, 3, x, y);
@@ -85,7 +86,7 @@ public class GameWorldFactory {
 
 	public Entity createCell(float x, float y, Color color) {
 		Entity entity = new Entity();
-		entity.body = createBody(x, y, 0.5f, MASK_CELL);
+		entity.body = createRoundBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
 		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
 		entity.cell = new CellData();
@@ -96,7 +97,7 @@ public class GameWorldFactory {
 		return entity;
 	}
 
-	public Body createBody(float x, float y, float radius, short categoryBits) {
+	public Body createRoundBody(float x, float y, float radius, short categoryBits) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(x, y);
@@ -112,6 +113,25 @@ public class GameWorldFactory {
 		fixtureDef.restitution = 0.5f;
 		fixtureDef.filter.categoryBits = categoryBits;
 
+		body.createFixture(fixtureDef);
+
+		return body;
+	}
+
+	public Body createSolidBox(float x, float y, float width, float height) {
+		float hw = width / 2;
+		float hh = height / 2;
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.StaticBody;
+		bodyDef.position.set(x + hw, y + hh);
+
+		PolygonShape bodyShape = new PolygonShape();
+		bodyShape.setAsBox(hw, hh);
+
+		Body body = world.createBody(bodyDef);
+
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = bodyShape;
 		body.createFixture(fixtureDef);
 
 		return body;

@@ -21,11 +21,12 @@ public class GameWorld implements EatListener {
 	private PlayerHandler player;
 	private List<Entity> enemies = new ArrayList<Entity>();
 	private EntityContactListener contactListener;
+	private Random random;
 
 	public GameWorld() {
 		world = new World(gravity, true);
 		renderer = new GameWorldRenderer(world);
-		renderer.useDebugRenderer = false;
+		renderer.useDebugRenderer = true;
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
 
@@ -36,7 +37,7 @@ public class GameWorld implements EatListener {
 		enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
 		enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
 
-		Random random = new Random();
+		random = new Random();
 		int generateFood = 100;
 		while (generateFood-- > 0) {
 			float x = random.nextFloat() * 60 - 30;
@@ -47,6 +48,13 @@ public class GameWorld implements EatListener {
 				factory.createMediumFood(x, y);
 			}
 		}
+		float min = -30;
+		float max = 30;
+		float size = max - min;
+		factory.createSolidBox(min, min, 0, size);
+		factory.createSolidBox(max, min, 0, size);
+		factory.createSolidBox(min, min, size, 0);
+		factory.createSolidBox(min, max, size, 0);
 
 		Events.factory.getQueue().listen(Eat.class, this);
 
@@ -92,5 +100,10 @@ public class GameWorld implements EatListener {
 		cell.cell.eat(food.food.foodValue);
 		world.destroyBody(food.body);
 		food.remove();
+		while (cell.cell.levelUps > 0) {
+			Gdx.app.log("Eat", "LevelUp");
+			cell.cell.levelUps--;
+			cell.cell.levelUp(random);
+		}
 	}
 }

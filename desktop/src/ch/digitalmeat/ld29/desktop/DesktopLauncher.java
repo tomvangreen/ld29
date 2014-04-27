@@ -11,7 +11,8 @@ public class DesktopLauncher {
 
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 0;
-
+		config.width = LD29.VIEWPORT_WIDTH;
+		config.height = LD29.VIEWPORT_HEIGHT;
 		new LwjglApplication(new LD29(), config);
 	}
 }

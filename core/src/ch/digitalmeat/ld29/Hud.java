@@ -1,5 +1,7 @@
 package ch.digitalmeat.ld29;
 
+import ch.digitalmeat.ld29.ProgressFormatter.DefaultIntProgressFormatter;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -11,6 +13,7 @@ public class Hud implements UiScreen {
 	private ProgressBar foodBar;
 	private ProgressBar lifeBar;
 	private Entity player;
+	private ProgressBar attackBar;
 
 	public Hud(Entity player) {
 		this.player = player;
@@ -24,14 +27,17 @@ public class Hud implements UiScreen {
 		table.align(Align.top | Align.left);
 		Table bars = new Table(skin);
 		bars.row().fillX().expandX();
-		foodBar = new ProgressBar(skin, Colors.FOOD_BAR, Colors.BAR_BACKGROUND);
+		foodBar = new ProgressBar(new DefaultIntProgressFormatter("Food: %d/%d"), skin, Colors.FOOD_BAR, Colors.BAR_BACKGROUND);
 		foodBar.setValue(5, 10);
-		lifeBar = new ProgressBar(skin, Colors.LIFE_BAR, Colors.BAR_BACKGROUND);
+		lifeBar = new ProgressBar(new DefaultIntProgressFormatter("Life: %d/%d"), skin, Colors.LIFE_BAR, Colors.BAR_BACKGROUND);
 		lifeBar.setValue(5, 10);
-		bars.add("Life", "progress");
+		attackBar = new ProgressBar(new DefaultIntProgressFormatter("Strength: %d/%d"), skin, Colors.ATTACK_BAR, Colors.BAR_BACKGROUND);
+		attackBar.setValue(5, 100);
+		// bars.add("Life", "progress");
 		bars.add(lifeBar).prefHeight(20).expandX().fillX();
-		bars.add("Food", "progress");
+		// bars.add("Food", "progress");
 		bars.add(foodBar).prefHeight(20).expandX().fillX();
+		bars.add(attackBar).prefHeight(20).expandX().fillX();
 		table.add(bars).expandX().fillX().expandX().prefHeight(20);
 		stage.addActor(table);
 	}
@@ -51,6 +57,7 @@ public class Hud implements UiScreen {
 		CellData cell = player.cell;
 		lifeBar.setValue(cell.life, cell.lifeCap);
 		foodBar.setValue(cell.food, cell.foodCap);
+		attackBar.setValue(cell.attack, cell.attackCap);
 	}
 
 }
