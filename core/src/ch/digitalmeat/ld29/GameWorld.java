@@ -60,11 +60,30 @@ public class GameWorld implements EatListener, SpawnListener {
 
 		Events.factory.getQueue().listen(Eat.class, this);
 		ai = new AiCellHandler(this);
+		camPosition.set(player.getPosition());
+		camTarget.set(player.getPosition());
+		nextTarget.set(player.getPosition());
+		lastTarget.set(player.getPosition());
+		zoom = 0.35f;
+		nextZoom = zoom;
+		lastZoom = zoom;
+		zoomTarget = zoom;
 	}
 
 	public Entity getPlayer() {
 		return player.getEntity();
 	}
+
+	private float zoom;
+	private float zoomTarget;
+	private float lastZoom;
+	private float nextZoom;
+	private Vector2 camPosition = new Vector2();
+	private Vector2 camTarget = new Vector2();
+	private Vector2 nextTarget = new Vector2();
+	private Vector2 lastTarget = new Vector2();
+	private float camTimer = 0;
+	public final static float CAM_UPDATE_TIME = 0.4f;
 
 	public void update(float delta) {
 		player.handleInput();
@@ -88,16 +107,38 @@ public class GameWorld implements EatListener, SpawnListener {
 			// Gdx.app.log("Trimmed Length", "" + length);
 			float value = (length - 1) / (maxZoomVel - minZoomVel);
 			// Gdx.app.log("Value", "" + value);
-			float zoom = Interpolation.linear.apply(0.35f, 0.5f, value);
+			zoomTarget = Interpolation.linear.apply(0.35f, 0.5f, value);
 			// Gdx.app.log("Zoom", "" + zoom);
 			// zoom = 1f;
-			renderer.setSceneZoom(zoom);
 		}
 		spawner.update(delta);
+
+		camTarget.set(player.getPosition());
+
+		camTimer -= delta;
+		float scale = (CAM_UPDATE_TIME - camTimer) / CAM_UPDATE_TIME;
+		if (camTimer < 0) {
+			camTimer = CAM_UPDATE_TIME;
+			// zoom = zoomTarget;
+			camPosition.set(camTarget);
+			lastTarget.set(nextTarget);
+			nextTarget.set(camTarget);
+			lastZoom = nextZoom;
+			nextZoom = zoomTarget;
+			camPosition.set(lastTarget);
+			zoom = lastZoom;
+		} else {
+
+			// Gdx.app.log("GameWorld", "Scale: " + scale);
+			camPosition.x = Interpolation.linear.apply(lastTarget.x, nextTarget.x, scale);
+			camPosition.y = Interpolation.linear.apply(lastTarget.y, nextTarget.y, scale);
+			zoom = Interpolation.linear.apply(lastZoom, nextZoom, scale);
+			renderer.setSceneZoom(zoom);
+		}
 	}
 
 	public void draw() {
-		renderer.draw(player.getPosition());
+		renderer.draw(camPosition);
 	}
 
 	@Override

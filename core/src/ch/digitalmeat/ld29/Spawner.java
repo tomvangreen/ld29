@@ -13,7 +13,7 @@ public class Spawner {
 	public int food;
 	public int foodCap = 0;
 	public int enemy;
-	public int enemyCap = 3;
+	public int enemyCap = 0;
 
 	private float minX;
 
