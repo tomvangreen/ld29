@@ -1,10 +1,15 @@
 package ch.digitalmeat.ld29;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
 public class Assets {
 	public static TextureRegion cell;
@@ -15,8 +20,11 @@ public class Assets {
 	public static TextureRegion white;
 	public static Skin skin;
 	public static Sound blip01;
+	public static Json json;
+	private static List<Message> messages;
 
 	public static void create() {
+		json = new Json(OutputType.json);
 		Texture spritesheet = new Texture(Gdx.files.internal("spritesheet.png"));
 		Texture cellTexture = new Texture(Gdx.files.internal("cell-hq.png"));
 		cell = new TextureRegion(cellTexture, 0, 0, 128, 128);
@@ -29,5 +37,15 @@ public class Assets {
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 		blip01 = Gdx.audio.newSound(Gdx.files.internal("blip01.wav"));
+		getMessages();
+	}
+
+	public static List<Message> getMessages() {
+		if (messages == null) {
+			messages = new ArrayList<Message>();
+			MessageData data = json.fromJson(MessageData.class, Gdx.files.internal("msg/messages.json"));
+			messages = data.messages;
+		}
+		return messages;
 	}
 }

@@ -34,11 +34,14 @@ public class LD29 extends ApplicationAdapter {
 		ui = new Stage(new ScalingViewport(Scaling.fit, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
 
 		screens.add(new Hud(gameWorld.getPlayer()));
+		screens.add(new Messages());
 
 		for (UiScreen screen : screens) {
 			screen.create(ui);
 			// screen.hide();
 		}
+
+		Events.factory.message("start", true, false);
 	}
 
 	@Override

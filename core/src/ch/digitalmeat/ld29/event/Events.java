@@ -26,4 +26,16 @@ public class Events {
 		queue.queue(event);
 	}
 
+	private ShowMessage message() {
+		return new ShowMessage();
+	}
+
+	public void message(String key, boolean isSequence, boolean clearList) {
+		ShowMessage event = message();
+		event.key = key;
+		event.isSequence = isSequence;
+		event.clearExisting = clearList;
+		queue.queue(event);
+	}
+
 }

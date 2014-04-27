@@ -1,0 +1,22 @@
+{
+	"messages":[
+		{
+			"key": "start-01"
+			, "sequence": "start"
+			, "time": 3
+			, "message": "You are a cell in the deep ocean"
+		}
+		, {
+			"key": "start-02"
+			, "sequence": "start"
+			, "time": 3
+			, "message": "Use the arrow keys or ASWD to move around"
+		}
+		, {
+			"key": "start-03"
+			, "sequence": "start"
+			, "time": 3
+			, "message": "Use the arrow keys or ASWD to move around"
+		}
+	]
+}
