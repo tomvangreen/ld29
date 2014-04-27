@@ -107,6 +107,8 @@ public class GameWorldFactory {
 		stage.addActor(entity);
 		entity.setColor(Colors.TRANSPARENT);
 		entity.addAction(Actions.color(color, 2f));
+		float impulse = 0.3f;
+		entity.body.applyAngularImpulse(random.nextFloat() * impulse - impulse / 2, true);
 		return entity;
 	}
 
@@ -127,7 +129,7 @@ public class GameWorldFactory {
 		// fixtureDef.filter.categoryBits = categoryBits;
 
 		body.createFixture(fixtureDef);
-		body.setAngularDamping(0.3f);
+		body.setAngularDamping(0.1f);
 		body.setLinearDamping(0.03f);
 		return body;
 	}

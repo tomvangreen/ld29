@@ -10,7 +10,7 @@
 			"key": "start-01.c"
 			, "sequence": "start-01"
 			, "time": 4
-			, "message": "Use the arrow keys or ASWD to move around"
+			, "message": "Use the arrow keys or WASD to move around"
 		}
 		, {
 			"key": "start-01.d"

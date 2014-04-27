@@ -8,7 +8,7 @@ public class CellData {
 	public int life = 10;
 	public int lifeCap = 10;
 	public int levelUps = 0;
-	public int attack = 5;
+	public int attack = 0;
 	public int attackCap = 5;
 
 	public float aiTimer = 0f;
@@ -20,6 +20,10 @@ public class CellData {
 			levelUps++;
 			food -= foodCap;
 			foodCap = foodCap * 5 / 4;
+		}
+		attack += value;
+		if (attack > attackCap) {
+			attack = attackCap;
 		}
 	}
 

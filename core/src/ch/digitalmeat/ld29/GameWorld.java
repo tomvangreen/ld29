@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 import ch.digitalmeat.ld29.Entity.EntityType;
+import ch.digitalmeat.ld29.event.Attack;
+import ch.digitalmeat.ld29.event.AttackListener;
 import ch.digitalmeat.ld29.event.Eat;
 import ch.digitalmeat.ld29.event.EatListener;
 import ch.digitalmeat.ld29.event.Events;
@@ -23,7 +25,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class GameWorld implements EatListener, SpawnListener {
+public class GameWorld implements EatListener, SpawnListener, AttackListener {
 	public final static Vector2 gravity = new Vector2(0, 0);
 	private World world;
 	private GameWorldRenderer renderer;
@@ -43,6 +45,7 @@ public class GameWorld implements EatListener, SpawnListener {
 
 	public GameWorld() {
 		Events.factory.getQueue().listen(Spawn.class, this);
+		Events.factory.getQueue().listen(Attack.class, this);
 		world = new World(gravity, true);
 		float min = -30;
 		float max = 30;
@@ -77,6 +80,11 @@ public class GameWorld implements EatListener, SpawnListener {
 		cameraActor.setScale(zoom);
 		renderer.getStage().addActor(cameraActor);
 		updateCamera();
+		// //Lol cheater ;)
+		// int bla = 100;
+		// while (bla-- > 0) {
+		// player.getEntity().cell.levelUp(random);
+		// }
 	}
 
 	public Entity getPlayer() {
@@ -224,5 +232,33 @@ public class GameWorld implements EatListener, SpawnListener {
 			}
 		}
 		return candidate;
+	}
+
+	@Override
+	public void attack(Entity a, Entity b) {
+		int aDamage = calculateAttackDamage(a);
+		int bDamage = calculateAttackDamage(b);
+		if (a.cell.attack > 0) {
+			a.cell.attack--;
+		}
+		if (b.cell.attack > 0) {
+			b.cell.attack--;
+		}
+		damage(b, aDamage);
+		damage(a, bDamage);
+	}
+
+	private void damage(Entity b, int damage) {
+		b.cell.life -= damage;
+		if (b.cell.life < 0) {
+			spawner.remove(b);
+			enemies.remove(b);
+			cells.remove(b);
+		}
+	}
+
+	private int calculateAttackDamage(Entity e) {
+		CellData cell = e.cell;
+		return (cell.attackCap + cell.attack) / 10;
 	}
 }

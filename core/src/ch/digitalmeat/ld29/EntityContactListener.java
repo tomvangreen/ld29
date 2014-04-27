@@ -20,6 +20,9 @@ public class EntityContactListener implements ContactListener {
 		} else if (eats(b, a)) {
 			Events.factory.eat(getEntity(b), getEntity(a));
 		}
+		if (isCell(a) && isCell(b)) {
+			Events.factory.attack(getEntity(a), getEntity(b));
+		}
 	}
 
 	public boolean eats(Fixture a, Fixture b) {

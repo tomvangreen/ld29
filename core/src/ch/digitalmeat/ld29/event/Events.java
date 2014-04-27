@@ -55,4 +55,15 @@ public class Events {
 	public void messageComplete() {
 		queue.queue(newMessageComplete());
 	}
+
+	private Attack attack() {
+		return new Attack();
+	}
+
+	public void attack(Entity a, Entity b) {
+		Attack event = attack();
+		event.a = a;
+		event.b = b;
+		queue.queue(event);
+	}
 }
