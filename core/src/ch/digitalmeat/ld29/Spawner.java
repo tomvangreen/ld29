@@ -3,20 +3,18 @@ package ch.digitalmeat.ld29;
 import java.util.Random;
 
 import ch.digitalmeat.ld29.event.Events;
-import ch.digitalmeat.ld29.event.Spawn.SpawnType;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class Spawner {
 
 	private GameWorldFactory factory;
 
-	public int smallFood;
-	public int smallFoodCap = 10;
-	public int mediumFood = 0;
-	public int mediumFoodCap = 10;
+	public int food;
+	public int foodCap = 100;
 	public int enemy;
-	public int enemyCap = 0;
+	public int enemyCap = 10;
 
 	private float minX;
 
@@ -53,7 +51,10 @@ public class Spawner {
 	}
 
 	public void populate() {
-
+		while (spawnFood()) {
+		}
+		while (spawnEnemy()) {
+		}
 	}
 
 	public void update(float delta) {
@@ -69,10 +70,7 @@ public class Spawner {
 		switch (choice) {
 		case 0:
 		default:
-			spawnSmallFood();
-			break;
-		case 1:
-			spawnMediumFood();
+			spawnFood();
 			break;
 		case 2:
 			spawnEnemy();
@@ -84,32 +82,50 @@ public class Spawner {
 		if (enemy < enemyCap) {
 			Vector2 position = getSpawnLocation();
 			Entity entity = factory.createCell(position.x, position.y, Colors.ENEMY_STRONG);
-			Events.factory.spawn(entity, SpawnType.Enemy);
+			Events.factory.spawn(entity);
 			enemy++;
+			Gdx.app.log("Spawner", "Enemy created");
 			return true;
 		}
 		return false;
 	}
 
-	private boolean spawnMediumFood() {
-		if (smallFood < smallFoodCap) {
+	private boolean spawnFood() {
+		if (food < foodCap) {
 			Vector2 position = getSpawnLocation();
-			Entity entity = factory.createSmallFood(position.x, position.y);
-			Events.factory.spawn(entity, SpawnType.SmallFood);
-			smallFood++;
+			Entity entity = null;
+			if (random.nextInt(4) == 0) {
+				entity = factory.createMediumFood(position.x, position.y);
+			} else {
+				entity = factory.createSmallFood(position.x, position.y);
+			}
+			Events.factory.spawn(entity);
+			food++;
+			Gdx.app.log("Spawner", "Food created");
 			return true;
 		}
 		return false;
 	}
 
-	private boolean spawnSmallFood() {
-		if (mediumFood < mediumFoodCap) {
-			Vector2 position = getSpawnLocation();
-			Entity entity = factory.createMediumFood(position.x, position.y);
-			Events.factory.spawn(entity, SpawnType.MediumFood);
-			mediumFood++;
-			return true;
+	public void remove(Entity entity) {
+
+		factory.getWorld().destroyBody(entity.body);
+		entity.remove();
+		if (entity.light != null) {
+			entity.light.remove();
+			entity.light = null;
 		}
-		return false;
+		switch (entity.type) {
+		default:
+			break;
+		case Cell:
+			enemy--;
+			break;
+		case Food:
+			food--;
+			break;
+
+		}
+
 	}
 }

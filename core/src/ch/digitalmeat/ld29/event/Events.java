@@ -1,14 +1,11 @@
 package ch.digitalmeat.ld29.event;
 
 import ch.digitalmeat.ld29.Entity;
-import ch.digitalmeat.ld29.event.Spawn.SpawnType;
 
 public class Events {
 	public final static Events factory = new Events(new EventQueue());
 
 	private final EventQueue queue;
-
-	private SpawnType type;
 
 	public Events(EventQueue queue) {
 		this.queue = queue;
@@ -45,10 +42,9 @@ public class Events {
 		return new Spawn();
 	}
 
-	public void spawn(Entity entity, SpawnType type) {
+	public void spawn(Entity entity) {
 		Spawn event = spawn();
 		event.entity = entity;
-		event.type = type;
 		queue.queue(event);
 	}
 }

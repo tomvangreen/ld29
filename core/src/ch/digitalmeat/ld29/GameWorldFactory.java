@@ -141,4 +141,8 @@ public class GameWorldFactory {
 		stage.addActor(image);
 		return body;
 	}
+
+	public World getWorld() {
+		return world;
+	}
 }
