@@ -27,6 +27,8 @@ public class Entity extends Actor {
 
 	public FoodData food;
 
+	public boolean active;
+
 	public static float maxSpeed = 6f;
 
 	@Override

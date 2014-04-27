@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ch.digitalmeat.ld29.Entity.EntityType;
 import ch.digitalmeat.ld29.event.Eat;
 import ch.digitalmeat.ld29.event.EatListener;
 import ch.digitalmeat.ld29.event.Events;
@@ -22,9 +23,15 @@ public class GameWorld implements EatListener, SpawnListener {
 	private GameWorldFactory factory;
 	private PlayerHandler player;
 	private List<Entity> enemies = new ArrayList<Entity>();
+	private List<Entity> food = new ArrayList<Entity>();
+	private List<Entity> cells = new ArrayList<Entity>();
 	private EntityContactListener contactListener;
 	private Random random;
 	private Spawner spawner;
+
+	private Vector2 v1 = new Vector2();
+	private Vector2 v2 = new Vector2();
+	private AiCellHandler ai;
 
 	public GameWorld() {
 		Events.factory.getQueue().listen(Spawn.class, this);
@@ -36,7 +43,7 @@ public class GameWorld implements EatListener, SpawnListener {
 
 		factory = new GameWorldFactory(world, renderer.getStage(), renderer.getRayHandler());
 		player = new PlayerHandler(factory.createCell(-10, 1, Colors.PLAYER_COLOR));
-
+		cells.add(player.getEntity());
 		contactListener = new EntityContactListener();
 		world.setContactListener(contactListener);
 		random = new Random();
@@ -52,7 +59,7 @@ public class GameWorld implements EatListener, SpawnListener {
 		factory.createSolidBox(min, max, size + wallWidth, wallWidth);
 
 		Events.factory.getQueue().listen(Eat.class, this);
-
+		ai = new AiCellHandler(this);
 	}
 
 	public Entity getPlayer() {
@@ -61,6 +68,9 @@ public class GameWorld implements EatListener, SpawnListener {
 
 	public void update(float delta) {
 		player.handleInput();
+		for (Entity enemy : enemies) {
+			ai.update(enemy, delta);
+		}
 		world.step(1f / 60f, 6, 3);
 		renderer.update();
 		if (player != null) {
@@ -100,6 +110,7 @@ public class GameWorld implements EatListener, SpawnListener {
 			cell.cell.levelUps--;
 			cell.cell.levelUp(random);
 		}
+		this.food.remove(food);
 		spawner.remove(food);
 	}
 
@@ -107,7 +118,11 @@ public class GameWorld implements EatListener, SpawnListener {
 	public void spawn(Entity entity) {
 		switch (entity.type) {
 		case Cell:
+			cells.add(entity);
 			enemies.add(entity);
+			break;
+		case Food:
+			food.add(entity);
 			break;
 		default:
 			break;
@@ -117,5 +132,47 @@ public class GameWorld implements EatListener, SpawnListener {
 
 	public Spawner getSpawner() {
 		return spawner;
+	}
+
+	public Entity findNearestFood(Entity source) {
+		return findNearestEntity(source, EntityType.Food);
+	}
+
+	public Entity findNearestCell(Entity source) {
+		return findNearestEntity(source, EntityType.Cell);
+	}
+
+	public Entity findNearestEntity(Entity source, EntityType type) {
+		List<Entity> list = null;
+		if (type == EntityType.Food) {
+			list = food;
+		} else if (type == EntityType.Cell) {
+			list = cells;
+		} else {
+			return null;
+		}
+		float length = 0;
+		Entity candidate = null;
+		for (Entity test : list) {
+			if (test != source) {
+				if (candidate == null) {
+					candidate = test;
+					v1.set(candidate.getX(), candidate.getY());
+					v2.set(source.getX(), source.getY());
+
+					length = v1.sub(v2).len();
+				} else {
+					v1.set(test.getX(), test.getY());
+					float v2Length = v1.sub(v2).len();
+					Gdx.app.log("Ai", "Old Length: " + length + ", New Length: " + v2.len());
+					if (v2Length < length) {
+						Gdx.app.log("Ai", "Taking new length");
+						candidate = test;
+						length = v2Length;
+					}
+				}
+			}
+		}
+		return candidate;
 	}
 }

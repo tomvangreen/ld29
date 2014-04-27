@@ -13,7 +13,7 @@ public class Spawner {
 	public int food;
 	public int foodCap = 0;
 	public int enemy;
-	public int enemyCap = 0;
+	public int enemyCap = 3;
 
 	private float minX;
 
@@ -108,6 +108,7 @@ public class Spawner {
 
 	public void remove(Entity entity) {
 
+		entity.active = false;
 		factory.getWorld().destroyBody(entity.body);
 		entity.remove();
 		if (entity.light != null) {

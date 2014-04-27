@@ -11,6 +11,9 @@ public class CellData {
 	public int attack = 5;
 	public int attackCap = 5;
 
+	public float aiTimer = 0f;
+	public Entity target = null;
+
 	public void eat(int value) {
 		food += value;
 		while (food >= foodCap) {

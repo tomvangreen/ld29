@@ -4,13 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 
-public class PlayerHandler {
+public class PlayerHandler extends CellHandler {
 
-	private static final float LINEAR_FORCE = 2f;
 	private Entity entity;
-	private Vector2 force = new Vector2();
-	private Vector2 position = new Vector2();
-
 	public PlayerHandler(Entity entity) {
 		this.entity = entity;
 	}
