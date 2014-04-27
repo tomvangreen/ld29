@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class GameWorldFactory {
 
@@ -51,7 +52,7 @@ public class GameWorldFactory {
 	public Entity createSmallFood(float x, float y) {
 		Color color = Colors.FOOD_SMALL;
 		Entity entity = new Entity();
-		entity.body = createRoundBody(x, y, 0.0625f, MASK_FOOD);
+		entity.body = createRoundBody(x, y, 0.1f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
 		entity.light = new PointLight(rayHandler, 50, color, 1.5f, x, y);
@@ -67,7 +68,7 @@ public class GameWorldFactory {
 	public Entity createMediumFood(float x, float y) {
 		Color color = Colors.FOOD_MEDIUM;
 		Entity entity = new Entity();
-		entity.body = createRoundBody(x, y, 0.125f, MASK_FOOD);
+		entity.body = createRoundBody(x, y, 0.15f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
 		entity.light = new PointLight(rayHandler, 50, color, 3, x, y);
@@ -88,7 +89,7 @@ public class GameWorldFactory {
 		Entity entity = new Entity();
 		entity.body = createRoundBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
-		entity.light = new PointLight(rayHandler, 50, color, 5, x, y);
+		entity.light = new PointLight(rayHandler, 300, color, 7.5f, x, y);
 		entity.cell = new CellData();
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Cell;
@@ -111,10 +112,10 @@ public class GameWorldFactory {
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.3f;
 		fixtureDef.restitution = 0.5f;
-		fixtureDef.filter.categoryBits = categoryBits;
+		// fixtureDef.filter.categoryBits = categoryBits;
 
 		body.createFixture(fixtureDef);
-
+		body.setAngularDamping(0.3f);
 		return body;
 	}
 
@@ -133,7 +134,11 @@ public class GameWorldFactory {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = bodyShape;
 		body.createFixture(fixtureDef);
-
+		Image image = new Image(Assets.blank);
+		float mtp = Entity.METERS_TO_PIXELS;
+		image.setColor(Color.BLACK);
+		image.setBounds(x * mtp, y * mtp, width * mtp, height * mtp);
+		stage.addActor(image);
 		return body;
 	}
 }

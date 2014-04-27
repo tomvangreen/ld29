@@ -30,7 +30,7 @@ public class Assets {
 		cell = new TextureRegion(cellTexture, 0, 0, 128, 128);
 		small_food = new TextureRegion(spritesheet, 16, 0, 2, 2);
 		medium_food = new TextureRegion(spritesheet, 20, 0, 4, 4);
-		blank = new TextureRegion(spritesheet, 30, 0, 1, 1);
+		white = new TextureRegion(spritesheet, 30, 0, 1, 1);
 		blank = new TextureRegion(spritesheet, 26, 0, 1, 1);
 		Texture groundTexture = new Texture(Gdx.files.internal("ground-hq.png"));
 		ground = new TextureRegion(groundTexture, 0, 0, 64, 64);

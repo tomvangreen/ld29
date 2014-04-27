@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -26,11 +27,19 @@ public class Entity extends Actor {
 
 	public FoodData food;
 
+	public float maxSpeed = 4f;
+
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		Vector2 velocity = body.getLinearVelocity();
+		float speed = velocity.len();
+		if (speed > maxSpeed) {
+			body.setLinearVelocity(velocity.scl(maxSpeed / speed));
+		}
+
 		lightColor.set(getColor());
-		lightColor.a = 0.75f;
+		// lightColor.a = 0.75f;
 		setPosition(body.getPosition().x * METERS_TO_PIXELS, body.getPosition().y * METERS_TO_PIXELS);
 		setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 		light.setColor(lightColor);

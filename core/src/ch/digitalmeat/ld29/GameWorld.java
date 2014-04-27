@@ -22,6 +22,7 @@ public class GameWorld implements EatListener {
 	private List<Entity> enemies = new ArrayList<Entity>();
 	private EntityContactListener contactListener;
 	private Random random;
+	private Spawner spawner;
 
 	public GameWorld() {
 		world = new World(gravity, true);
@@ -32,12 +33,14 @@ public class GameWorld implements EatListener {
 
 		contactListener = new EntityContactListener();
 		world.setContactListener(contactListener);
-
-		enemies.add(factory.createCell(5, 2, Colors.ENEMY_WEAK));
-		enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
-		enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
-
 		random = new Random();
+		float min = -30;
+		float max = 30;
+		spawner = new Spawner(factory, random, min, max, min, max);
+		// enemies.add(factory.createCell(5, 2, Colors.ENEMY_WEAK));
+		// enemies.add(factory.createCell(10, 10, Colors.ENEMY_NEUTRAL));
+		// enemies.add(factory.createCell(-10, -10, Colors.ENEMY_STRONG));
+		//
 		int generateFood = 100;
 		while (generateFood-- > 0) {
 			float x = random.nextFloat() * 60 - 30;
@@ -48,13 +51,14 @@ public class GameWorld implements EatListener {
 				factory.createMediumFood(x, y);
 			}
 		}
-		float min = -30;
-		float max = 30;
+		min = -35;
+		max = 35;
 		float size = max - min;
-		factory.createSolidBox(min, min, 0, size);
-		factory.createSolidBox(max, min, 0, size);
-		factory.createSolidBox(min, min, size, 0);
-		factory.createSolidBox(min, max, size, 0);
+		float wallWidth = 2.5f;
+		factory.createSolidBox(min, min, wallWidth, size + wallWidth);
+		factory.createSolidBox(max, min, wallWidth, size + wallWidth);
+		factory.createSolidBox(min, min, size + wallWidth, wallWidth);
+		factory.createSolidBox(min, max, size + wallWidth, wallWidth);
 
 		Events.factory.getQueue().listen(Eat.class, this);
 

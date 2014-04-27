@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 public class Colors {
 	public final static Color AMBIENT_LIGHT = new Color(0 / 255f, 0 / 255f, 0 / 255f, 0.1f);
 
-	public final static Color PLAYER_COLOR = new Color(50 / 255f, 70 / 255f, 31 / 255f, 1f);
+	public final static Color PLAYER_COLOR = new Color(100 / 255f, 140 / 255f, 62 / 255f, 1f);
 
 	public final static Color ENEMY_WEAK = new Color(45 / 255f, 55 / 255f, 112 / 255f, 1f);
 	public final static Color ENEMY_NEUTRAL = new Color(125 / 255f, 121 / 255f, 27 / 255f, 1f);
