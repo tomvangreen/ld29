@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +24,7 @@ public class Assets {
 	public static Json json;
 	private static List<Message> messages;
 	public static Script script;
+	public static Music music;
 
 	public static void create() {
 		json = new Json(OutputType.json);
@@ -38,6 +40,10 @@ public class Assets {
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 		blip01 = Gdx.audio.newSound(Gdx.files.internal("blip01.wav"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("underneath.wav"));
+		music.setLooping(true);
+		music.setVolume(0.25f);
+		music.play();
 		getMessages();
 		script = json.fromJson(Script.class, Gdx.files.internal("script.json"));
 	}
