@@ -1,7 +1,5 @@
 package ch.digitalmeat.ld29;
 
-import ch.digitalmeat.ld29.ProgressFormatter.DefaultIntProgressFormatter;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,12 +18,12 @@ public class ProgressBar extends Actor {
 	private ProgressFormatter formatter;
 
 	public ProgressBar(Skin skin, Color remainingColor, Color missingColor) {
-		this(new DefaultIntProgressFormatter(), skin, remainingColor, missingColor);
+		this(new ResourceFormatter(null), skin, remainingColor, missingColor);
 	}
 
 	public ProgressBar(ProgressFormatter formatter, Skin skin, Color remainingColor, Color missingColor) {
 		if (formatter == null) {
-			formatter = new DefaultIntProgressFormatter();
+			formatter = new ResourceFormatter(null);
 		}
 		this.formatter = formatter;
 		this.label = new Label("", skin, "progress");

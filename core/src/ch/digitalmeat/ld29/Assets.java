@@ -27,7 +27,7 @@ public class Assets {
 	public static Music music;
 
 	public static void create() {
-		json = new Json(OutputType.json);
+		json = new Json(OutputType.minimal);
 		Texture spritesheet = new Texture(Gdx.files.internal("spritesheet.png"));
 		Texture cellTexture = new Texture(Gdx.files.internal("cell-hq.png"));
 		cell = new TextureRegion(cellTexture, 0, 0, 128, 128);
@@ -50,8 +50,9 @@ public class Assets {
 
 	public static List<Message> getMessages() {
 		if (messages == null) {
+			Gdx.app.log("Assets", "Loading messages");
 			messages = new ArrayList<Message>();
-			MessageData data = json.fromJson(MessageData.class, Gdx.files.internal("msg/messages.json"));
+			MessageData data = json.fromJson(MessageData.class, Gdx.files.internal("messages.json"));
 			messages = data.messages;
 		}
 		return messages;
