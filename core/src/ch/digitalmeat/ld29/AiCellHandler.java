@@ -91,9 +91,12 @@ public class AiCellHandler extends CellHandler {
 	}
 
 	private boolean canAttack(Entity entity, Entity other) {
-		int a = entity.cell.attack + entity.cell.attackCap + entity.cell.life;
-		int b = entity.cell.attack + entity.cell.attackCap + entity.cell.life;
-		return (a + 2 > b);
+		if (!entity.active || !other.active || other.cell == null) {
+			return false;
+		}
+		int a = entity.cell.attack + entity.cell.life;
+		int b = other.cell.attack + other.cell.life;
+		return (a > b * 1.1f);
 	}
 
 	private void evade(Entity entity, CellData cell) {
