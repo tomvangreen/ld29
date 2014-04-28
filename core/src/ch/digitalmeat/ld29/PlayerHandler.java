@@ -13,28 +13,30 @@ public class PlayerHandler extends CellHandler {
 		this.entity = entity;
 	}
 
-	public void handleInput() {
+	public void handleInput(float delta) {
 		force.set(0, 0);
 		boolean left = Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A);
 		boolean right = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
 		boolean up = Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W);
 		boolean down = Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S);
-		if (left) {
-			force.x -= 1;
+		if (entity.body != null) {
+			if (left) {
+				force.x -= 1;
+			}
+			if (right) {
+				force.x += 1;
+			}
+			if (up) {
+				force.y += 1;
+			}
+			if (down) {
+				force.y -= 1;
+			}
+			entity.body.applyForceToCenter(force.nor().scl(LINEAR_FORCE), true);
 		}
-		if (right) {
-			force.x += 1;
-		}
-		if (up) {
-			force.y += 1;
-		}
-		if (down) {
-			force.y -= 1;
-		}
-		entity.body.applyForceToCenter(force.nor().scl(LINEAR_FORCE), true);
-
 		heal.update(Gdx.input.isKeyPressed(Keys.N));
 		entity.thrusting = Gdx.input.isKeyPressed(Keys.SPACE);
+		handleThrust(entity, delta);
 		if (heal.down()) {
 			CellData cell = entity.cell;
 			if (cell.food > 0 && cell.life < cell.lifeCap) {
@@ -51,7 +53,8 @@ public class PlayerHandler extends CellHandler {
 	}
 
 	public Vector2 getVelocity() {
-		return entity.body.getLinearVelocity();
+
+		return entity.body == null ? null : entity.body.getLinearVelocity();
 	}
 
 	public Entity getEntity() {

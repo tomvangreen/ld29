@@ -13,6 +13,7 @@ public class CellData {
 
 	public float aiTimer = 0f;
 	public Entity target = null;
+	public float thrustTimer;
 
 	public void eat(int value) {
 		food += value;

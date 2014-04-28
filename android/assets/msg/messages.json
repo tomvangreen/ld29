@@ -70,7 +70,7 @@
 		, {
 			"key": ""
 			, "sequence": "increase"
-			, "time": 4
+			, "time": 6
 			, "message": "There is more food. "
 		}
 		, {
@@ -84,6 +84,18 @@
 			, "sequence": "increase"
 			, "time": 4
 			, "message": "Stronger competition..."
+		}
+		, {
+			"key": ""
+			, "sequence": "increase2"
+			, "time": 4
+			, "message": "It's getting crowded."
+		}
+		, {
+			"key": ""
+			, "sequence": "hunger"
+			, "time": 4
+			, "message": "Food is getting scarce."
 		}
 		
 	]

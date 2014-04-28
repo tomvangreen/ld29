@@ -97,13 +97,13 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 	public final static float CAM_UPDATE_TIME = 0.5f;
 
 	public void update(float delta) {
-		player.handleInput();
+		player.handleInput(delta);
 		for (Entity enemy : enemies) {
 			ai.update(enemy, delta);
 		}
 		world.step(1f / 60f, 6, 3);
 		renderer.update();
-		if (player != null) {
+		if (player != null && player.getEntity().body != null) {
 			Vector2 velocity = player.getVelocity();
 			// Gdx.app.log("PlayerSpeed", velocity.toString());
 			float length = velocity.len();
