@@ -10,4 +10,14 @@
 	
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 	<extend-configuration-property name="gdx.reflect.include" value="LD29" /> 
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.MessageData" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.events" />
+	<!--  
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.Assets" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.Script" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.event.ScriptEvent" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.Message" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.MessageData" />
+	-->
 </module>

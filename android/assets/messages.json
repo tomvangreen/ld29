@@ -9,92 +9,92 @@
 		, {
 			"key": "start-01.c"
 			, "sequence": "start-01"
-			, "time": 4
+			, "time": 5
 			, "message": "Use the arrow keys or WASD to move around"
 		}
 		, {
 			"key": "start-04"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 6
 			, "message": "Eat the green food to fill up your food bar."
 		}
 		, {
 			"key": "start-04"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 5
 			, "message": "When the bar is full, your cell levels up."
 		}
 		, {
 			"key": "start-01.d"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 6
 			, "message": "The red bar shows your life. When it goes to zero you will die."
 		}
 		, {
 			"key": "start-01.d"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 5
 			, "message": "Press space to increase your speed."
 		}
 		, {
 			"key": "start-01.d"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 5
 			, "message": "This will use up your food."
 		}
 		, {
 			"key": "start-05"
 			, "sequence": "start-02"
-			, "time": 4
+			, "time": 6
 			, "message": "You gain additional health or attack power with leveling up."
 		}
 		, {
 			"key": "start-05"
 			, "sequence": "start-03"
-			, "time": 4
+			, "time": 5
 			, "message": "Watch out, you are not alone in this murky waters."
 		}
 
 		, {
 			"key": "start-05"
 			, "sequence": "start-03"
-			, "time": 4
+			, "time": 5
 			, "message": "You can attack the enemy cells by bumping in to them."
 		}
 		, {
 			"key": "start-05"
 			, "sequence": "start-03"
-			, "time": 4
+			, "time": 5
 			, "message": "The blue bar shows your attack strength."
 		}
 		, {
 			"key": ""
 			, "sequence": "increase"
-			, "time": 6
+			, "time": 5
 			, "message": "There is more food. "
 		}
 		, {
 			"key": ""
 			, "sequence": "increase"
-			, "time": 4
+			, "time": 5
 			, "message": "More food means more competition."
 		}
 		, {
 			"key": ""
 			, "sequence": "increase"
-			, "time": 4
+			, "time": 5
 			, "message": "Stronger competition..."
 		}
 		, {
 			"key": ""
 			, "sequence": "increase2"
-			, "time": 4
+			, "time": 6
 			, "message": "It's getting crowded."
 		}
 		, {
 			"key": ""
 			, "sequence": "hunger"
-			, "time": 4
+			, "time": 6
 			, "message": "Food is getting scarce."
 		}
 		

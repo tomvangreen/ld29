@@ -53,7 +53,7 @@
 		}		
 		, {
 			"action": "Wait"
-			, "delay": 45
+			, "delay": 70
 		}
 		, {
 			"action": "EnemyLevel"
@@ -82,7 +82,7 @@
 		}		
 		, {
 			"action": "Wait"
-			, "delay": 45
+			, "delay": 70
 		}
 		, {
 			"action": "EnemyLevel"
@@ -104,7 +104,11 @@
 		}		
 		, {
 			"action": "Wait"
-			, "delay": 45
+			, "delay": 60
+		}
+		, {
+			"action": "EnemyCap"
+			, "value": 5
 		}
 		, {
 			"action": "FoodCap"

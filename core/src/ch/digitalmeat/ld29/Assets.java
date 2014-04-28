@@ -45,14 +45,14 @@ public class Assets {
 		music.setVolume(0.5f);
 		music.play();
 		getMessages();
-		script = json.fromJson(Script.class, Gdx.files.internal("script.json"));
+		script = json.fromJson(Script.class, Gdx.files.internal("script.json").readString());
 	}
 
 	public static List<Message> getMessages() {
 		if (messages == null) {
 			Gdx.app.log("Assets", "Loading messages");
 			messages = new ArrayList<Message>();
-			MessageData data = json.fromJson(MessageData.class, Gdx.files.internal("messages.json"));
+			MessageData data = json.fromJson(MessageData.class, Gdx.files.internal("messages.json").readString());
 			messages = data.messages;
 		}
 		return messages;

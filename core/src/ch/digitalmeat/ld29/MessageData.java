@@ -13,7 +13,7 @@ public class MessageData implements Serializable {
 
 	@Override
 	public void write(Json json) {
-		throw new RuntimeException("Not implemented");
+		// throw new RuntimeException("Not implemented");
 	}
 
 	@Override

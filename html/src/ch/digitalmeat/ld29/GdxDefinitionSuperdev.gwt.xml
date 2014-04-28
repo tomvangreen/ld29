@@ -13,4 +13,11 @@
 	<set-configuration-property name="devModeRedirectEnabled" value="true"/>
 	
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
+	
+	<extend-configuration-property name="gdx.reflect.include" value="LD29" /> 
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.MessageData" />
+	<extend-configuration-property name="gdx.reflect.include" value="ch.digitalmeat.ld29.events" />
+	
+	
 </module>
