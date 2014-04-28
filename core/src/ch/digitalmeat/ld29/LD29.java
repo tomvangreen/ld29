@@ -20,10 +20,20 @@ public class LD29 extends ApplicationAdapter {
 	private GameWorld gameWorld;
 	public static final int VIEWPORT_WIDTH = 800;
 	public static final int VIEWPORT_HEIGHT = 480;
-
+	public static float LIGHT_LENGTH = 1f;
+	public static float EFFECTS_SCALE = 1f;
 	private Stage ui;
 
 	private List<UiScreen> screens = new ArrayList<UiScreen>();
+
+	public LD29() {
+
+	}
+
+	public LD29(float effectsScale, float lightLength) {
+		EFFECTS_SCALE = effectsScale;
+		LIGHT_LENGTH = lightLength;
+	}
 
 	@Override
 	public void create() {

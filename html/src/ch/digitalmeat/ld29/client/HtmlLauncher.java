@@ -15,6 +15,6 @@ public class HtmlLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener getApplicationListener() {
-		return new LD29();
+		return new LD29(0.15f, 0.5f);
 	}
 }

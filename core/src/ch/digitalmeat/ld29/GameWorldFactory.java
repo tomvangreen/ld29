@@ -56,7 +56,7 @@ public class GameWorldFactory {
 		entity.body = createRoundBody(x, y, 0.1f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.small_food;
-		entity.light = new PointLight(rayHandler, 50, Colors.TRANSPARENT, 1.5f, x, y);
+		entity.light = new PointLight(rayHandler, (int) (50 * LD29.EFFECTS_SCALE), Colors.TRANSPARENT, 1.5f * LD29.LIGHT_LENGTH, x, y);
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Food;
 		entity.food = new FoodData();
@@ -76,7 +76,7 @@ public class GameWorldFactory {
 		entity.body = createRoundBody(x, y, 0.15f, MASK_FOOD);
 		entity.setColor(color);
 		entity.region = Assets.medium_food;
-		entity.light = new PointLight(rayHandler, 50, Colors.TRANSPARENT, 3, x, y);
+		entity.light = new PointLight(rayHandler, (int) (50 * LD29.EFFECTS_SCALE), Colors.TRANSPARENT, 3 * LD29.LIGHT_LENGTH, x, y);
 		stage.addActor(entity);
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Food;
@@ -97,7 +97,7 @@ public class GameWorldFactory {
 		Entity entity = new Entity();
 		entity.body = createRoundBody(x, y, 0.5f, MASK_CELL);
 		entity.setColor(color);
-		entity.light = new PointLight(rayHandler, 200, Colors.TRANSPARENT, 7.5f, x, y);
+		entity.light = new PointLight(rayHandler, (int) (200 * LD29.EFFECTS_SCALE), Colors.TRANSPARENT, 7.5f * LD29.LIGHT_LENGTH, x, y);
 		entity.cell = new CellData();
 		entity.body.setUserData(entity);
 		entity.type = EntityType.Cell;
