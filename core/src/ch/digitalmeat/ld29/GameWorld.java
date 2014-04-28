@@ -165,7 +165,11 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 		while (cell.cell.levelUps > 0) {
 			// Gdx.app.log("Eat", "LevelUp");
 			cell.cell.levelUps--;
+
 			cell.cell.levelUp(random);
+			if (cell == player.getEntity()) {
+				Events.factory.enemyLevel(1);
+			}
 		}
 		this.food.remove(food);
 		spawner.remove(food);
@@ -211,7 +215,7 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 		float length = 0;
 		Entity candidate = null;
 		for (Entity test : list) {
-			if (test != source) {
+			if (test != source && test.active) {
 				if (candidate == null) {
 					candidate = test;
 					v1.set(candidate.getX(), candidate.getY());
@@ -260,5 +264,9 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 	private int calculateAttackDamage(Entity e) {
 		CellData cell = e.cell;
 		return (cell.attackCap + cell.attack) / 10;
+	}
+
+	public List<Entity> getCells() {
+		return cells;
 	}
 }

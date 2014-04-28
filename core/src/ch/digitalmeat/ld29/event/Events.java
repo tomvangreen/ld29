@@ -66,4 +66,14 @@ public class Events {
 		event.b = b;
 		queue.queue(event);
 	}
+
+	private ChangeEnemyLevel changeEnemyLevel() {
+		return new ChangeEnemyLevel();
+	}
+
+	public void enemyLevel(int value) {
+		ChangeEnemyLevel event = changeEnemyLevel();
+		event.value = value;
+		queue.queue(event);
+	}
 }

@@ -2,6 +2,8 @@ package ch.digitalmeat.ld29;
 
 import java.util.Random;
 
+import ch.digitalmeat.ld29.AiCellHandler.CellState;
+
 public class CellData {
 	public int food = 0;
 	public int foodCap = 5;
@@ -14,6 +16,7 @@ public class CellData {
 	public float aiTimer = 0f;
 	public Entity target = null;
 	public float thrustTimer;
+	public CellState state;
 
 	public void eat(int value) {
 		food += value;

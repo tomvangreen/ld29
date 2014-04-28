@@ -80,6 +80,11 @@ public class Script implements Serializable, MessageCompleteHandler {
 				gameWorld.getSpawner().populate();
 				current = null;
 				break;
+			case EnemyLevel:
+				Gdx.app.log("Script", "Enemy Level");
+				Events.factory.enemyLevel((int) current.value);
+				current = null;
+				break;
 			}
 		}
 	}

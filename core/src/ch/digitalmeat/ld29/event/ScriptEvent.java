@@ -27,12 +27,12 @@ public class ScriptEvent implements Serializable, GameEvent<ScriptEventHandler> 
 			key = json.readValue("key", String.class, jsonData);
 		} else if (action == Action.Wait) {
 			value = json.readValue("delay", Float.class, jsonData);
-		} else if (action == Action.FoodCap || action == Action.EnemyCap) {
+		} else if (action == Action.FoodCap || action == Action.EnemyCap || action == Action.EnemyLevel) {
 			value = json.readValue("value", Float.class, jsonData);
 		}
 	}
 
 	public enum Action {
-		WaitForSequence, Wait, Sequence, Message, Populate, FoodCap, EnemyCap
+		WaitForSequence, Wait, Sequence, Message, Populate, FoodCap, EnemyCap, EnemyLevel
 	}
 }

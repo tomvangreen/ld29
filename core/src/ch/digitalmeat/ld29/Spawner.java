@@ -2,13 +2,15 @@ package ch.digitalmeat.ld29;
 
 import java.util.Random;
 
+import ch.digitalmeat.ld29.event.ChangeEnemyLevel;
+import ch.digitalmeat.ld29.event.ChangeEnemyLevelListener;
 import ch.digitalmeat.ld29.event.Events;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public class Spawner {
+public class Spawner implements ChangeEnemyLevelListener {
 
 	private GameWorldFactory factory;
 
@@ -32,7 +34,10 @@ public class Spawner {
 	public static float SPAWN_INTERVAL = 0.5f;
 	private float timer = SPAWN_INTERVAL;
 
+	private int enemyLevel;
+
 	public Spawner(GameWorldFactory factory, Random random, float minX, float maxX, float minY, float maxY) {
+		Events.factory.getQueue().listen(ChangeEnemyLevel.class, this);
 		this.factory = factory;
 		this.random = random;
 		this.minX = minX;
@@ -84,6 +89,11 @@ public class Spawner {
 			Vector2 position = getSpawnLocation();
 			Entity entity = factory.createCell(position.x, position.y, Colors.ENEMY_STRONG);
 			Events.factory.spawn(entity);
+			int levelups = enemyLevel;
+			while (levelups-- > 0) {
+				entity.cell.levelUp(random);
+			}
+			entity.cell.life = entity.cell.lifeCap;
 			enemy++;
 			// Gdx.app.log("Spawner", "Enemy created");
 			return true;
@@ -159,5 +169,14 @@ public class Spawner {
 			vector.set(x + entity.body.getPosition().x, y + entity.body.getPosition().y);
 			spawnFood(vector);
 		}
+	}
+
+	@Override
+	public void changeEnemyLevel(int value) {
+		enemyLevel += value;
+		if (enemyLevel < 0) {
+			enemyLevel = 0;
+		}
+		Gdx.app.log("Spawner", "Enemy Level: " + enemyLevel);
 	}
 }

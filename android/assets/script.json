@@ -56,6 +56,10 @@
 			, "delay": 45
 		}
 		, {
+			"action": "EnemyLevel"
+			, "value": 2
+		}
+		, {
 			"action": "EnemyCap"
 			, "value": 5
 		}
@@ -79,6 +83,10 @@
 		, {
 			"action": "Wait"
 			, "delay": 45
+		}
+		, {
+			"action": "EnemyLevel"
+			, "value": 5
 		}
 		, {
 			"action": "EnemyCap"
