@@ -158,7 +158,10 @@ public class Spawner implements ChangeEnemyLevelListener {
 
 	private void dropFoodOnDeath(Entity entity) {
 		CellData cell = entity.cell;
-		int count = (cell.food + cell.attackCap + cell.foodCap);
+		int count = (cell.food + cell.attackCap + cell.foodCap) / 2;
+		if (count > 50) {
+			count = 50;
+		}
 		float width = 1;
 		float height = 1;
 		Gdx.app.log("Drop Food On Death:", "" + count);

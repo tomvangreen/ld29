@@ -160,7 +160,9 @@ public class GameWorld implements EatListener, SpawnListener, AttackListener {
 	@Override
 	public void eat(Entity cell, Entity food) {
 		// Gdx.app.log("Contact", "Eat");
-		Assets.blip01.play(0.5f);
+		if (cell == player.getEntity()) {
+			Assets.blip01.play(0.3f);
+		}
 		cell.cell.eat(food.food.foodValue);
 		while (cell.cell.levelUps > 0) {
 			// Gdx.app.log("Eat", "LevelUp");

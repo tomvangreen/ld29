@@ -40,9 +40,9 @@ public class Assets {
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 		blip01 = Gdx.audio.newSound(Gdx.files.internal("blip01.wav"));
-		music = Gdx.audio.newMusic(Gdx.files.internal("underneath.wav"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("underneath.ogg"));
 		music.setLooping(true);
-		music.setVolume(0.25f);
+		music.setVolume(0.5f);
 		music.play();
 		getMessages();
 		script = json.fromJson(Script.class, Gdx.files.internal("script.json"));
