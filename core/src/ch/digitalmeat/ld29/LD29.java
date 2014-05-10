@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LD29 extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -22,6 +23,8 @@ public class LD29 extends ApplicationAdapter {
 	public static final int VIEWPORT_HEIGHT = 480;
 	public static float LIGHT_LENGTH = 1f;
 	public static float EFFECTS_SCALE = 1f;
+
+	public static Viewport viewport;
 	private Stage ui;
 
 	private List<UiScreen> screens = new ArrayList<UiScreen>();
@@ -41,7 +44,8 @@ public class LD29 extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		gameWorld = new GameWorld();
-		ui = new Stage(new ScalingViewport(Scaling.fit, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
+		viewport = new ScalingViewport(Scaling.fit, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		ui = new Stage(viewport);
 
 		screens.add(new Hud(gameWorld.getPlayer()));
 		screens.add(new Messages());
